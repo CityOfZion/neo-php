@@ -12,15 +12,21 @@ $neo->setNode("http://seed5.neo.org:10332");
 
 **Query the account asset information, according to the account address.**
 
-```$neo->getAccountState($testAddress)```
+```php
+$neo->getAccountState($testAddress);
+```
 
 **Query the asset information, based on the specified asset number.**
 
-```$neo->getAssetState($neoAssetID)```;
+```php
+$neo->getAssetState($neoAssetID);
+```
 
 **Returns the hash of the tallest block in the main chain.**
 
-```$neo->getBestBlockHash();```
+```php
+$neo->getBestBlockHash();
+```
 
 **Returns the corresponding block information according to the specified index OR hash.**
 ```php
@@ -30,39 +36,57 @@ $neo->getBlock(1533325);
 
 **Gets the number of blocks in the main chain.**
 
-```$neo->getBlockCount();```
+```php
+$neo->getBlockCount();
+```
 
 **not sure what this does :-)**
 
-```$neo->getBlockSysFee($neo->getBlockCount()-1);```
+```php
+$neo->getBlockSysFee($neo->getBlockCount()-1);
+```
 
 **Returns the hash value of the corresponding block, based on the specified index.**
 
-```$neo->getBlockHash($neo->getBlockCount()-1);```
+```php
+$neo->getBlockHash($neo->getBlockCount()-1);
+```
 
 **Gets the current number of connections for the node.**
 
-```$neo->getConnectionCount();```
+```php
+$neo->getConnectionCount();
+```
 
 **Query contract information, according to the contract script hash.**
 
-```$neo->getContractState("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7");```
+```php
+$neo->getContractState("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7");
+```
 
 **Obtain the list of unconfirmed transactions in memory.**
 
-```$neo->getRawMemPool()```
+```php
+$neo->getRawMemPool()
+```
 
 **Returns the corresponding transaction information, based on the specified hash value.**
 
-```$neo->getRawTransaction("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",true)```
+```php
+$neo->getRawTransaction("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",true);
+```
 
 **Query contract information, according to the contract script hash.**
 
-```$neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b");```
+```php
+$neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b");
+```
 
 **Returns the corresponding transaction output information (returned change), based on the specified hash and index.**
 
-```$neo->getTxOut("0e3c0f477d80acda1c45650b3260e2410287ef78c291f6e02f0214daca2bd2cf",0)```
+```php
+$neo->getTxOut("0e3c0f477d80acda1c45650b3260e2410287ef78c291f6e02f0214daca2bd2cf",0);
+```
 
 **Broadcasts a transaction over the NEO network. There are many kinds of transactions, as specified in the network protocol [documentation](http://docs.neo.org/en-us/node/network-protocol.html)**
 ```php
