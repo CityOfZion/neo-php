@@ -4,9 +4,11 @@ A NEO RPC wrapper in PHP
 ## A Lot work in progress :)
 
 **Connecting**
-```$neo = new PHPNeo();
+```php
+$neo = new PHPNeo();
 //$neo->setNode($neo->getFastestNode());
-$neo->setNode("http://seed5.neo.org:10332");```
+$neo->setNode("http://seed5.neo.org:10332");
+```
 
 
 **Query the account asset information, according to the account address.**
@@ -22,8 +24,10 @@ $neo->setNode("http://seed5.neo.org:10332");```
 ```$neo->getBestBlockHash();```
 
 **Returns the corresponding block information according to the specified index OR hash.**
-```$neo->getBlock("0x56adb8cc0de3e4fff7b8641988c83bfca214802d263495403055efdd437234c4");
-$neo->getBlock(1533325);```
+```php
+$neo->getBlock("0x56adb8cc0de3e4fff7b8641988c83bfca214802d263495403055efdd437234c4");
+$neo->getBlock(1533325);
+```
 
 **Gets the number of blocks in the main chain.**
 
