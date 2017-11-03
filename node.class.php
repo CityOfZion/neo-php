@@ -1,6 +1,6 @@
 <?php
 define("_NEOPHP_VERSION_","1.0");
-class neophp {
+class NeoRPC {
 
 	/**
 	 * nodes
