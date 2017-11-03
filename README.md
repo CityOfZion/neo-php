@@ -1,4 +1,4 @@
-# PHPNeo
+# php-neo
 A NEO RPC wrapper in PHP
 
 ## A Lot work in progress :)
@@ -44,6 +44,44 @@ $neo->getBlock(1533325);
 **Gets the current number of connections for the node.**
 
 ```$neo->getConnectionCount();```
+
+**Query contract information, according to the contract script hash.**
+
+```$neo->getContractState("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7");```
+
+**Obtain the list of unconfirmed transactions in memory.**
+
+```$neo->getRawMemPool()```
+
+**Returns the corresponding transaction information, based on the specified hash value.**
+
+```$neo->getRawTransaction("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",true)```
+
+**Query contract information, according to the contract script hash.**
+
+```$neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b");```
+
+**Returns the corresponding transaction output information (returned change), based on the specified hash and index.**
+
+```$neo->getTxOut("0e3c0f477d80acda1c45650b3260e2410287ef78c291f6e02f0214daca2bd2cf",0)```
+
+**Broadcasts a transaction over the NEO network. There are many kinds of transactions, as specified in the network protocol [documentation](http://docs.neo.org/en-us/node/network-protocol.html)**
+```php
+$transaction_id = ""; //A hexadecimal string that has been serialized, after the signed transaction in the program.
+$broadcastTransaction = $neo->sendRawTransaction($transaction_id);
+if ($broadcastTransaction)
+	echo "Sent";
+else
+	echo "Hasn't been sent";
+```
+
+**Validate an address**
+```php
+if ($neo->validateAddress("AXCLjFvfi47R1sKLrebbRJnqWgbcsncfro"))
+	echo "Address is valid";
+else
+	echo "Address is not valid";
+```
 
 Be kind and credit me ❤️.
 
