@@ -24,25 +24,40 @@ class PHPNeo {
 	 * @access public
 	 * @return void
 	 */
-	function __construct() {
-		$this->nodes = array(
-			"http://seed1.cityofzion.io:8080",
-			"http://seed2.cityofzion.io:8080",
-			"http://seed3.cityofzion.io:8080",
-			"http://seed4.cityofzion.io:8080",
-			"http://seed5.cityofzion.io:8080",
-			"http://seed1.neo.org:10332",
-			"http://seed2.neo.org:10332",
-			"http://seed3.neo.org:10332",
-			"http://seed4.neo.org:10332",
-			"http://seed5.neo.org:10332"
-		);
+	function __construct($useMainNet=true) {
+		
+		if ($useMainNet) 
+			$this->nodes = array(
+				"http://seed1.cityofzion.io:8080",
+				"http://seed2.cityofzion.io:8080",
+				"http://seed3.cityofzion.io:8080",
+				"http://seed4.cityofzion.io:8080",
+				"http://seed5.cityofzion.io:8080",
+				"http://seed1.neo.org:10332",
+				"http://seed2.neo.org:10332",
+				"http://seed3.neo.org:10332",
+				"http://seed4.neo.org:10332",
+				"http://seed5.neo.org:10332"
+			);
+		else
+			$this->nodes = array(
+				"http://seed1.cityofzion.io:8880",
+				"http://seed2.cityofzion.io:8080",
+				"http://seed3.cityofzion.io:8080",
+				"http://seed4.cityofzion.io:8880",
+				"http://seed5.cityofzion.io:8880",
+				"http://seed1.neo.org:20332",
+				"http://seed2.neo.org:20332",
+				"http://seed3.neo.org:20332",
+				"http://seed4.neo.org:20332",
+				"http://seed5.neo.org:20332"
+			);		
 	}
 	
 	/*
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		@@ Var getters and setters functions
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@ Var getters and setters functions
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 	*/	
 	/**
 	 * setNode function.
@@ -77,9 +92,9 @@ class PHPNeo {
 	}
 
 	/*
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		@@ Public functions
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@ Public functions
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 	*/
 	/**
 	 * getFastestNode function.
@@ -111,81 +126,214 @@ class PHPNeo {
 		return $fastest_node;
 	}
 
-
 	/*
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		@@ API Functions functions
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@ API Functions functions
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 	*/
-
-
+	/**
+	 * getAccountState function.
+	 * 
+	 * @access public
+	 * @param mixed $address
+	 * @return void
+	 */
 	public function getAccountState($address) {
 		if (!$address)
 			throw new Exception("Undefined address");		
 		return $this->rpcRequest($this->active_node,"getaccountstate",array($address));
 	}
 	
+	/**
+	 * getAssetState function.
+	 * 
+	 * @access public
+	 * @param mixed $asset: Asset ID
+	 * @return void
+	 */
 	public function getAssetState($asset) {
 		if (!$asset)
 			throw new Exception("Undefined asset");		
 		return $this->rpcRequest($this->active_node,"getassetstate",array($asset));
 	}
 
+	/**
+	 * getBestBlockHash function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function getBestBlockHash() {
 		return $this->rpcRequest($this->active_node,"getbestblockhash");
 	}
 	
+	/**
+	 * getBlock function.
+	 * 
+	 * @access public
+	 * @param bool $block_identifier (default: false)
+	 * @param bool $verbose (default: true) Optional, the default value of verbose is 0. When verbose is 0, the serialized information of the block is returned, represented by a hexadecimal string. If you need to get detailed information, you will need to use the SDK for deserialization. When verbose is 1, detailed information of the corresponding block in Json format string, is returned
+	 * @return void
+	 */
 	public function getBlock($block_identifier=false,$verbose=true) {
 		if (!$block_identifier)
 			throw new Exception("Undefined block identifier");
 		return $this->rpcRequest($this->active_node,"getblock",array($block_identifier,$verbose));
 	}
 	
+	/**
+	 * getBlockCount function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function getBlockCount() {
 		return $this->rpcRequest($this->active_node,"getblockcount");
 	}
 	
+	
+	/**
+	 * getBlockSysFee function.
+	 * 
+	 * @access public
+	 * @param mixed $block_identifier
+	 * @return void
+	 */
 	public function getBlockSysFee($block_identifier) {
 		if (!$block_identifier)
 			throw new Exception("Undefined block identifier");
-
 		return $this->rpcRequest($this->active_node,"getblocksysfee",array($block_identifier));		
 	}	
 	
+	/**
+	 * getBlockHash function.
+	 * 
+	 * @access public
+	 * @param mixed $block_index
+	 * @return void
+	 */
 	public function getBlockHash($block_index) {
 		if (!$block_index || !is_numeric($block_index))
 			throw new Exception("Not a valid numeric value");
 		return $this->rpcRequest($this->active_node,"getblockhash",array($block_index));
 	}
 
+	/**
+	 * getConnectionCount function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function getConnectionCount() {
 		return $this->rpcRequest($this->active_node,"getconnectioncount");
 	}
 	
+	/**
+	 * getContractState function.
+	 * 
+	 * @access public
+	 * @param mixed $script_hash
+	 * @return void
+	 */
+	public function getContractState($script_hash) {
+		if (!$script_hash)
+			throw new Exception("Empty script hash");		
+		return $this->rpcRequest($this->active_node,"getcontractstate",array($script_hash));		
+	}
 
+	/**
+	 * getRawMemPool function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function getRawMemPool() {
+		return $this->rpcRequest($this->active_node,"getrawmempool");
+	}
 	
+	/**
+	 * getRawTransaction function.
+	 * 
+	 * @access public
+	 * @param mixed $transaction_id
+	 * @param bool $verbose (default: true)
+	 * @return void
+	 */
+	public function getRawTransaction($transaction_id,$verbose=true) {
+		if (!$transaction_id)
+			throw new Exception("Empty transaction id");		
+		return $this->rpcRequest($this->active_node,"getrawtransaction",array($transaction_id,$verbose));		
+	}
 	
+	/**
+	 * getStorage function.
+	 * 
+	 * @access public
+	 * @param mixed $script_hash
+	 * @return void
+	 */
+	public function getStorage($script_hash) {
+		if (!$script_hash)
+			throw new Exception("Empty script hash");		
+		return $this->rpcRequest($this->active_node,"getstorage",array($script_hash));		
+	}	
+
+	/**
+	 * getTxOut function.
+	 * 
+	 * @access public
+	 * @param bool $transaction_id (default: false)
+	 * @param int $index (default: 0)
+	 * @return void
+	 */
+	public function getTxOut($transaction_id=false,$index=0) {
+		if (!$transaction_id)
+			throw new Exception("Empty transaction id");
+
+		return $this->rpcRequest($this->active_node,"gettxout",array($transaction_id,$index));		
+	}
 	
-
-
-
-
-
-
-
+	/**
+	 * sendRawTransaction function.
+	 * 
+	 * @access public
+	 * @param mixed $hex
+	 * @return void
+	 */
+	public function sendRawTransaction($hex) {
+		if (!$hex)
+			throw new Exception("Empty hex string");
+		return $this->rpcRequest($this->active_node,"sendrawtransaction",array($hex));
+		
+	}
+	
+	/**
+	 * validateAddress function.
+	 * 
+	 * @access public
+	 * @param mixed $address
+	 * @return void
+	 */
 	public function validateAddress($address) {
 		if (!$address)
 			throw new Exception("Undefined address");
 		return $this->rpcRequest($this->active_node,"validateaddress",array($address))['isvalid'];
 	}
 	
-	
-	
-	
+	/**
+	 * getPeers function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function getPeers() {
+		return $this->rpcRequest($this->active_node,"getpeers");
+	}
+
 	/*
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		@@ cURL request functions
-		@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@ cURL request functions
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 	*/
 	/**
 	 * rpcRequest function.
