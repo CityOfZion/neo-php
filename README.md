@@ -40,7 +40,7 @@ $neo->getBlock(1533325);
 $neo->getBlockCount();
 ```
 
-**not sure what this does :-)**
+**Calculate claim transaction amounts in order use sendrawtransaction to make a claim.**
 
 ```php
 $neo->getBlockSysFee($neo->getBlockCount()-1);
