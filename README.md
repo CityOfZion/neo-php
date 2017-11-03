@@ -1,11 +1,11 @@
-# php-neo
+# neo-php
 A NEO RPC wrapper in PHP
 
 ## A Lot work in progress :)
 
 **Connecting**
 ```php
-$neo = new neophp(); #use true as argument to go to testnet
+$neo = new NeoRPC(); #use true as argument to go to testnet
 //$neo->setNode($neo->getFastestNode());
 $neo->setNode("http://seed5.neo.org:10332");
 ```
