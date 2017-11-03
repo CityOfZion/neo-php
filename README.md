@@ -20,15 +20,8 @@ $neo->setNode("http://seed5.neo.org:10332");```
 **Returns the hash of the tallest block in the main chain.**
 
 ```$neo->getBestBlockHash();```
-<<<<<<< HEAD
 
 **Returns the corresponding block information according to the specified index OR hash.**
-
-=======
-
-**Returns the corresponding block information according to the specified index OR hash.**
-
->>>>>>> Initial commit
 ```$neo->getBlock("0x56adb8cc0de3e4fff7b8641988c83bfca214802d263495403055efdd437234c4");
 $neo->getBlock(1533325);```
 
