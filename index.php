@@ -1,7 +1,7 @@
 <?php
 	include("node.class.php");
 	
-	$neo = new PHPNeo();
+	$neo = new neophp();
 	echo $neo->setNode($neo->getFastestNode());
 	$neo->setNode("http://seed5.neo.org:10332");
 
@@ -11,7 +11,7 @@
 	$gasAssetID = "0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7";
 	
 	//Query the account asset information, according to the account address.
-	print_r($neo->getAccountState($testAddress));
+	#print_r($neo->getAccountState($testAddress));
 	
 	//Query the asset information, based on the specified asset number. 
 	#print_r($neo->getAssetState($neoAssetID));

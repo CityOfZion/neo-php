@@ -1,6 +1,6 @@
 <?php
-define("_PHPNEO_VERSION_","1.0");
-class PHPNeo {
+define("_NEOPHP_VERSION_","1.0");
+class neophp {
 
 	/**
 	 * nodes
