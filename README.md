@@ -67,7 +67,7 @@ $neo->getContractState("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee79
 **Obtain the list of unconfirmed transactions in memory.**
 
 ```php
-$neo->getRawMemPool()
+$neo->getRawMemPool();
 ```
 
 **Returns the corresponding transaction information, based on the specified hash value.**
