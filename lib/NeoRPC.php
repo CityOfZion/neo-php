@@ -1,5 +1,8 @@
 <?php
-define("_NEOPHP_VERSION_","1.0");
+namespace NeoPHP;
+
+use NeoPHP\NeoRPC\NeoRPCRequest;
+
 class NeoRPC {
 
 	/**
@@ -25,7 +28,6 @@ class NeoRPC {
 	 * @return void
 	 */
 	function __construct($useMainNet=true) {
-		
 		if ($useMainNet) 
 			$this->nodes = array(
 				"http://seed1.cityofzion.io:8080",
@@ -67,7 +69,7 @@ class NeoRPC {
 	 */
 	public function setNode($node) {
 		if (filter_var($node, FILTER_VALIDATE_URL) === FALSE)
-		    throw new Exception("Node not a valid URL");
+		    throw new \Exception("Node not a valid URL");
 		$this->active_node = $node;
 	}
 
@@ -91,11 +93,6 @@ class NeoRPC {
 		return $this->nodes;
 	}
 
-	/*
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@@ Public functions
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
-	*/
 	/**
 	 * getFastestNode function.
 	 * 
@@ -126,11 +123,6 @@ class NeoRPC {
 		return $fastest_node;
 	}
 
-	/*
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@@ API Functions functions
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
-	*/
 	/**
 	 * getAccountState function.
 	 * 
@@ -140,10 +132,10 @@ class NeoRPC {
 	 */
 	public function getAccountState($address) {
 		if (!$address)
-			throw new Exception("Undefined address");		
-		return $this->rpcRequest($this->active_node,"getaccountstate",array($address));
+			throw new \Exception("Undefined address");		
+		return NeoRPC\RPCRequest::request($this->active_node,"getaccountstate",array($address));
 	}
-	
+
 	/**
 	 * getAssetState function.
 	 * 
@@ -153,8 +145,8 @@ class NeoRPC {
 	 */
 	public function getAssetState($asset) {
 		if (!$asset)
-			throw new Exception("Undefined asset");		
-		return $this->rpcRequest($this->active_node,"getassetstate",array($asset));
+			throw new \Exception("Undefined asset");		
+		return NeoRPC\RPCRequest::request($this->active_node,"getassetstate",array($asset));
 	}
 
 	/**
@@ -164,9 +156,9 @@ class NeoRPC {
 	 * @return void
 	 */
 	public function getBestBlockHash() {
-		return $this->rpcRequest($this->active_node,"getbestblockhash");
+		return NeoRPC\RPCRequest::request($this->active_node,"getbestblockhash");
 	}
-	
+
 	/**
 	 * getBlock function.
 	 * 
@@ -177,10 +169,10 @@ class NeoRPC {
 	 */
 	public function getBlock($block_identifier=false,$verbose=true) {
 		if (!$block_identifier)
-			throw new Exception("Undefined block identifier");
-		return $this->rpcRequest($this->active_node,"getblock",array($block_identifier,$verbose));
+			throw new \Exception("Undefined block identifier");
+		return NeoRPC\RPCRequest::request($this->active_node,"getblock",array($block_identifier,$verbose));
 	}
-	
+
 	/**
 	 * getBlockCount function.
 	 * 
@@ -188,10 +180,9 @@ class NeoRPC {
 	 * @return void
 	 */
 	public function getBlockCount() {
-		return $this->rpcRequest($this->active_node,"getblockcount");
+		return NeoRPC\RPCRequest::request($this->active_node,"getblockcount");
 	}
-	
-	
+
 	/**
 	 * getBlockSysFee function.
 	 * 
@@ -201,10 +192,10 @@ class NeoRPC {
 	 */
 	public function getBlockSysFee($block_identifier) {
 		if (!$block_identifier)
-			throw new Exception("Undefined block identifier");
-		return $this->rpcRequest($this->active_node,"getblocksysfee",array($block_identifier));		
+			throw new \Exception("Undefined block identifier");
+		return NeoRPC\RPCRequest::request($this->active_node,"getblocksysfee",array($block_identifier));		
 	}	
-	
+
 	/**
 	 * getBlockHash function.
 	 * 
@@ -214,8 +205,8 @@ class NeoRPC {
 	 */
 	public function getBlockHash($block_index) {
 		if (!$block_index || !is_numeric($block_index))
-			throw new Exception("Not a valid numeric value");
-		return $this->rpcRequest($this->active_node,"getblockhash",array($block_index));
+			throw new \Exception("Not a valid numeric value");
+		return NeoRPC\RPCRequest::request($this->active_node,"getblockhash",array($block_index));
 	}
 
 	/**
@@ -225,9 +216,9 @@ class NeoRPC {
 	 * @return void
 	 */
 	public function getConnectionCount() {
-		return $this->rpcRequest($this->active_node,"getconnectioncount");
+		return NeoRPC\RPCRequest::request($this->active_node,"getconnectioncount");
 	}
-	
+
 	/**
 	 * getContractState function.
 	 * 
@@ -237,8 +228,8 @@ class NeoRPC {
 	 */
 	public function getContractState($script_hash) {
 		if (!$script_hash)
-			throw new Exception("Empty script hash");		
-		return $this->rpcRequest($this->active_node,"getcontractstate",array($script_hash));		
+			throw new \Exception("Empty script hash");		
+		return NeoRPC\RPCRequest::request($this->active_node,"getcontractstate",array($script_hash));		
 	}
 
 	/**
@@ -248,9 +239,9 @@ class NeoRPC {
 	 * @return void
 	 */
 	public function getRawMemPool() {
-		return $this->rpcRequest($this->active_node,"getrawmempool");
+		return NeoRPC\RPCRequest::request($this->active_node,"getrawmempool");
 	}
-	
+
 	/**
 	 * getRawTransaction function.
 	 * 
@@ -261,10 +252,10 @@ class NeoRPC {
 	 */
 	public function getRawTransaction($transaction_id,$verbose=true) {
 		if (!$transaction_id)
-			throw new Exception("Empty transaction id");		
-		return $this->rpcRequest($this->active_node,"getrawtransaction",array($transaction_id,$verbose));		
+			throw new \Exception("Empty transaction id");		
+		return NeoRPC\RPCRequest::request($this->active_node,"getrawtransaction",array($transaction_id,$verbose));		
 	}
-	
+
 	/**
 	 * getStorage function.
 	 * 
@@ -274,8 +265,8 @@ class NeoRPC {
 	 */
 	public function getStorage($script_hash) {
 		if (!$script_hash)
-			throw new Exception("Empty script hash");		
-		return $this->rpcRequest($this->active_node,"getstorage",array($script_hash));		
+			throw new \Exception("Empty script hash");		
+		return NeoRPC\RPCRequest::request($this->active_node,"getstorage",array($script_hash));		
 	}	
 
 	/**
@@ -288,11 +279,11 @@ class NeoRPC {
 	 */
 	public function getTxOut($transaction_id=false,$index=0) {
 		if (!$transaction_id)
-			throw new Exception("Empty transaction id");
+			throw new \Exception("Empty transaction id");
 
-		return $this->rpcRequest($this->active_node,"gettxout",array($transaction_id,$index));		
+		return NeoRPC\RPCRequest::request($this->active_node,"gettxout",array($transaction_id,$index));		
 	}
-	
+
 	/**
 	 * sendRawTransaction function.
 	 * 
@@ -302,11 +293,11 @@ class NeoRPC {
 	 */
 	public function sendRawTransaction($hex) {
 		if (!$hex)
-			throw new Exception("Empty hex string");
-		return $this->rpcRequest($this->active_node,"sendrawtransaction",array($hex));
+			throw new \Exception("Empty hex string");
+		return NeoRPC\RPCRequest::request($this->active_node,"sendrawtransaction",array($hex));
 		
 	}
-	
+
 	/**
 	 * validateAddress function.
 	 * 
@@ -316,10 +307,10 @@ class NeoRPC {
 	 */
 	public function validateAddress($address) {
 		if (!$address)
-			throw new Exception("Undefined address");
-		return $this->rpcRequest($this->active_node,"validateaddress",array($address))['isvalid'];
+			throw new \Exception("Undefined address");
+		return NeoRPC\RPCRequest::request($this->active_node,"validateaddress",array($address))['isvalid'];
 	}
-	
+
 	/**
 	 * getPeers function.
 	 * 
@@ -327,71 +318,6 @@ class NeoRPC {
 	 * @return void
 	 */
 	public function getPeers() {
-		return $this->rpcRequest($this->active_node,"getpeers");
-	}
-
-	/*
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@@ cURL request functions
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
-	*/
-	/**
-	 * rpcRequest function.
-	 * 
-	 * @access public
-	 * @param bool $node (default: false)
-	 * @param bool $method (default: false)
-	 * @param array $params (default: array())
-	 * @return void
-	 */
-	private function rpcRequest($node=false, $method=false, $params=array()) {
-
-		if (!$node)
-			throw("No node defined");
-		
-		if (!$method)
-			throw("No method defined");
-
-		$data_array = json_encode(array(
-			"jsonrpc"=> "2.0",
-			"method" => $method,
-			"params" => $params,
-			"id"	 => 0,
-		));
-		
-		$ch = curl_init($node);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_array);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'PHPNeo '. _PHPNEO_VERSION_);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-		    'Content-Type: application/json',
-		    'Content-Length: ' . strlen($data_array)
-		));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				
-		$result = curl_exec($ch);
-		$errno = curl_errno($ch);
-		
-		if ($result === false) {
-		  throw("cURL Error: ".curl_error($ch));
-		  curl_close($ch);
-		}
-		
-		$json_return = json_decode($result,true);
-		if (json_last_error() != 0)
-			throw("Json not valid: ".json_last_error_msg());
-			
-		
-		if (isset($json_return['error'])) {
-			$error = $json_return['error']['message'];
-			throw new Exception("RPC Error message: ".$error);
-		}
-
-		curl_close($ch);
-		return $json_return['result'];
-	}
-	
-		
-	
+		return NeoRPC\RPCRequest::request($this->active_node,"getpeers");
+	}	
 }

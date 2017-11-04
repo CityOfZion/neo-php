@@ -1,14 +1,30 @@
 <?php
-	include("node.class.php");
-	
-	$neo = new neophp();
-	echo $neo->setNode($neo->getFastestNode());
+	////////TMP AUTOLOADER /////////////
+	function _require_all($dir) {
+        // require all php files
+        $scan = glob("$dir/*");
+        foreach ($scan as $path) {
+            if (preg_match('/\.php$/', $path)) {
+                require_once $path;
+            }
+            elseif (is_dir($path)) {
+                _require_all($path);
+            }
+        }
+    }
+    _require_all("./lib/");
+	////////TMP AUTOLOADER /////////////
+    
+    
+	$neo = new \NeoPHP\NeoRPC(true);
+	#$neo->setNode($neo->getFastestNode());
 	$neo->setNode("http://seed5.neo.org:10332");
 
 	//set test address
 	$testAddress = "AXCLjFvfi47R1sKLrebbRJnqWgbcsncfro"; # Bittrex cold wallet
 	$neoAssetID = "0xc56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b";
 	$gasAssetID = "0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7";
+
 	
 	//Query the account asset information, according to the account address.
 	#print_r($neo->getAccountState($testAddress));
