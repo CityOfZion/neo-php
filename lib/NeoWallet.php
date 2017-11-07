@@ -23,7 +23,7 @@ class NeoWallet {
 //			"address" => self::getAddressFromPublicKey($publicKeyHex),
 		);
 		
-		print_r($neoWallet);
+		return $neoWallet;
 	}
 	
 
