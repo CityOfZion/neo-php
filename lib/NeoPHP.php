@@ -1,6 +1,19 @@
 <?php
 namespace NeoPHP;
 
+
+if (!extension_loaded('bcmath') ) {            
+    throw new ErrorException("Please install BCMATH");
+}
+
+if (!extension_loaded('curl') ) {            
+    throw new ErrorException("Please install cURL");
+}
+
+if (!defined("USE_EXT"))
+	define("USE_EXT","BCMATH");
+
+
 /**
  * Class PHPNeo
  *
