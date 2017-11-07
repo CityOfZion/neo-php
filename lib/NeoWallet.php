@@ -1,19 +1,7 @@
 <?php
 namespace NeoPHP;
 
-use NeoPHP\Crypto\Base58;
-
 class NeoWallet {
-	
-	/**
-	 * __construct function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	function __construct() {
-		
-	}
 	
 	/**
 	 * newNeoWallet function.
@@ -23,36 +11,21 @@ class NeoWallet {
 	 */
 	public static function newNeoWallet() {
 		//Create a simple array privatekey
-		$privateKey = self::createPrivateKey();
+		$privateKeyHex = Crypto\KeyPair::createPrivateKeyHex();
+		$publicKeyHex  = Crypto\KeyPair::getPublicKeyFromPrivateKey($privateKeyHex);
+
 		
-		$wif = Crypto\WIF::createWifFromPrivateKey($privateKey);
-		
-		$keyPair = array(
-			"wif" => $wif['wif'],
-			"privateKey" => bin2hex($privateKey)
+		//get the WIF from the private key
+		$neoWallet = array(
+			"wif"=>Crypto\WIF::createWifFromPrivateKey($privateKeyHex),
+ 			"private_key_hex" => $privateKeyHex,
+			"public_key_hex" => $publicKeyHex
+//			"address" => self::getAddressFromPublicKey($publicKeyHex),
 		);
 		
-		return $keyPair;
+		print_r($neoWallet);
 	}
 	
-	/**
-	 * getWIFFromPrivateKey function.
-	 * 
-	 * @access public
-	 * @static
-	 * @param mixed $privateKey
-	 * @return void
-	 */
-	
-	
-	/**
-	 * createPrivateKey function.
-	 * 
-	 * @access private
-	 * @return void
-	 */
-	static private function createPrivateKey() {
-		return openssl_random_pseudo_bytes(32);
-	}
-		
+
+
 }
