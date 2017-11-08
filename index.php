@@ -18,10 +18,26 @@
 	////////TMP AUTOLOADER /////////////
 
 
-	//generate new keypair
-	//for now you only get a WIF
-	$newWallet = NeoPHP\NeoWallet::newNeoWallet();
-	print_r($newWallet);
+
+	//Create New Wallet
+	$newWallet = new NeoPHP\NeoWallet();
+	print_r(array(
+		"private_key" => $newWallet->getPrivateKey(),
+		"wif" => $newWallet->getWif(),
+		"public_key" => $newWallet->getPublicKey()
+	));
+
+
+	//Existing wallet
+	$existingWallet = new NeoPHP\NeoWallet("L4XTNtTtbXHKQzTd7pstZHqfJ7viwDWxVoggPqaej38NLUvkMnNT");
+	print_r(array(
+		"private_key" => $existingWallet->getPrivateKey(),
+		"wif" => $existingWallet->getWif(),
+		"public_key" => $existingWallet->getPublicKey()
+	));
+
+
+
 
 
 /*
