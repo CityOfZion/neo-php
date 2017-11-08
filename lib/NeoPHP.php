@@ -10,6 +10,7 @@ if (!extension_loaded('curl') ) {
     throw new ErrorException("Please install cURL");
 }
 
+//use GMP if possible
 if (!defined("USE_EXT"))
 	define("USE_EXT","BCMATH");
 
