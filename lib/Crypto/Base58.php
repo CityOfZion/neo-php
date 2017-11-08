@@ -14,7 +14,9 @@ class Base58 {
      * @param bool $compressed (default: false)
      * @return void
      */
-    public static function checkEncode($prefix=false, $string, $compressed=false) {
+    public static function checkEncode($string, $prefix=128, $compressed=true) {
+	    
+	    $string = hex2bin($string);
 	    
 	    if ($prefix)
 	        $string = chr($prefix).$string;
@@ -33,6 +35,38 @@ class Base58 {
         }
         return $base58;
     }
+    
+    
+    /**
+     * checkDecode function.
+     * 
+     * @access public
+     * @static
+     * @param mixed $string
+     * @param mixed $removeLeadingBytes
+     * @param int $removeTrailingBytes (default: 4)
+     * @return void
+     */
+    public static function checkDecode($string, $removeLeadingBytes=1, $removeTrailingBytes=4, $removeCompression=true) {
+	    
+	    $string = bin2hex(BcMathUtils::bc2bin(self::decode($string)));
+	    
+	    //if trailing bytes: Network type
+	    if ($removeLeadingBytes)
+	    	$string = substr($string, $removeLeadingBytes*2);
+
+
+	    //if trailing bytes: Checksum
+	    if ($removeTrailingBytes)
+	    	$string = substr($string, 0, -($removeTrailingBytes*2));
+
+	    //if trailing bytes: compressed byte
+	    if ($removeCompression)
+	    	$string = substr($string, 0, -2);
+	    
+	    //return string
+	    return $string;
+    }    
 
     /**
      * encode function.
@@ -55,7 +89,7 @@ class Base58 {
      * @return void
      */
     public static function decode($addr,$length=58) {
-	    return \NeoPHP\Utils\BcMathUtils::base2dec($addr, $length);
+	    return BcMathUtils::base2dec($addr, $length,'123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
     }
 		
 }	
