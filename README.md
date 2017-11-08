@@ -1,5 +1,5 @@
 # neo-php
-A NEO RPC wrapper in PHP
+This project aims to be a full Neo library written in PHP
 
 ## A Lot work in progress :)
 
