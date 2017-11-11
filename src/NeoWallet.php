@@ -66,8 +66,10 @@ class NeoWallet {
 	public function getAddress() {
 		if (!isset($this->wif))
 			throw new Exception("No WIF set");
+
+		$publicKeyHex = $this->getPublicKey();
 		
-		self::getAddressFromPublicKey($publicKeyHex);
+		return Crypto\KeyPair::getAddressFromPublicKey($publicKeyHex);
 	}
 	
 	

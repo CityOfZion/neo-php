@@ -52,23 +52,25 @@ class KeyPair {
 		$publicKey = hex2bin($publicKey);
 		
 		//SHA256 to raw format (binary) and then the RIPEMD160 to hex
-		$ripHash = Hash::RIPEMD160(Hash::SHA256($publicKey),false);
-		
+		$ripHash = bin2hex(Hash::RIPEMD160(Hash::SHA256($publicKey)));
+
 		//add the ADDRESS VERSION (improvement of explanation please)
 		$ripHash = 17 . $ripHash;
 
 		//Convert hex hash to bin. Then hash to SHA256 twice. Last one returns a hex again (first binary)
 		$shaOutput = Hash::SHA256(Hash::SHA256(hex2bin($ripHash)),false);
-		
+
 		//we need the first 4 bits. So first 8 chars
 		$shaChecksum = substr($shaOutput, 0, 8);
 		
 		//merge all together
 		$stringToBeEncoded = $ripHash.$shaChecksum;
 		
-		return Base58::encode($stringToBeEncoded);
+		//base58 wants decimal stuff, not hex
+		return Base58::encode(BcmathUtils::bchexdec($stringToBeEncoded));
 
 	}
+	
 	
 	/**
 	 * createPrivateKey function.
