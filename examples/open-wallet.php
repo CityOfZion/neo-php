@@ -11,12 +11,12 @@
             }
         }
     }
-    _require_all("./../lib/");
+    _require_all("./../src/");
 
-	//Existing wallet
 	$existingWallet = new NeoPHP\NeoWallet("L4XTNtTtbXHKQzTd7pstZHqfJ7viwDWxVoggPqaej38NLUvkMnNT");
 	print_r(array(
-		"private_key" => $existingWallet->getPrivateKey(),
 		"wif" => $existingWallet->getWif(),
-		"public_key" => $existingWallet->getPublicKey()
+		"address" => $existingWallet->getAddress()
+		"private_key" => $existingWallet->getPrivateKey(),
+		"public_key" => $existingWallet->getPublicKey(),
 	));
