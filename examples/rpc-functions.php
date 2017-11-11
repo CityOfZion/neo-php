@@ -11,7 +11,7 @@
             }
         }
     }
-    _require_all("./../lib/");
+    _require_all("./../src/");
 
 
 	#test net or not
