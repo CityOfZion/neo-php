@@ -3,11 +3,11 @@ namespace NeoPHP;
 
 
 if (!extension_loaded('bcmath') ) {            
-    throw new ErrorException("Please install BCMATH");
+    throw new \ErrorException("Please install BCMATH");
 }
 
 if (!extension_loaded('curl') ) {            
-    throw new ErrorException("Please install cURL");
+    throw new \ErrorException("Please install cURL");
 }
 
 //use GMP if possible
