@@ -7,7 +7,7 @@ use NeoPHP\NeoPHP;
 class RPCRequest
 {
 
-    public static function request($node = false, $method = false, $params = array())
+    public static function request($node = false, $method = false, $params = [])
     {
 
         if (!$node)
@@ -16,12 +16,12 @@ class RPCRequest
         if (!$method)
             throw new \Exception("No method defined");
 
-        $data_array = json_encode(array(
+        $data_array = json_encode([
             "jsonrpc" => "2.0",
             "method" => $method,
             "params" => $params,
             "id" => 0,
-        ));
+        ]);
 
         $ch = curl_init($node);
 
@@ -30,10 +30,10 @@ class RPCRequest
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, 'PHPNeo ' . NeoPHP::NEO_PHP_VERSION);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
             'Content-Length: ' . strlen($data_array)
-        ));
+        ]);
 
 
         $result = curl_exec($ch);
