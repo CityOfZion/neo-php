@@ -10,9 +10,34 @@ class NEP2
     const NEP_HEADER = '0142';
     const NEP_FLAG = 'e0';
 
-    static public function encrypt($privateKey, $passPhrase)
+    static public function encrypt($privateKeyHex, $passPhrase)
     {
-        return "encrypted key";
+	    echo $passPhrase;
+	    
+        //get the address from the private key:
+        $address = KeyPair::getAddressFromPrivateKey($privateKeyHex);
+        
+		//hash the address
+        $addressCheck = substr(Hash::SHA256(Hash::SHA256($address),false),0,8);
+        
+        //get derived data
+        $derived = bin2hex(Scrypt::calc($passPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
+        
+        //split the derived data
+        $derived_first = substr($derived, 0, 64);
+        $derived_second = substr($derived, 64);
+        
+        //we get the private key
+		$xor = self::hexXor($privateKeyHex, $derived_first);
+		
+		
+        //encrypt the key using the second derived data
+        $encrypt = openssl_encrypt(hex2bin($xor), "aes-256-ecb", hex2bin($derived_second), OPENSSL_NO_PADDING);
+
+		// compile the string
+		$compiledString = self::NEP_HEADER . self::NEP_FLAG . $addressCheck . bin2hex($encrypt);
+				
+		return Base58::checkEncode($compiledString,false,false,false);
     }
 
 

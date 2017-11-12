@@ -51,6 +51,23 @@ class NeoWallet
     }
 
 
+	/**
+	 * encryptWallet function.
+	 * 
+	 * @access public
+	 * @param mixed $passPhrase
+	 * @return void
+	 */
+	public function encryptWallet($passPhrase) {
+		
+		if (!$passPhrase || $passPhrase == "")
+			throw new \Exception("No passphrase set");
+	
+		$this->isEncrypted = true;
+		$this->encryptedKey = Crypto\NEP2::encrypt($this->privateKeyHex, $passPhrase);
+		
+	}
+
     /**
      * getPrivateKey function.
      *
