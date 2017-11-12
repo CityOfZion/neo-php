@@ -13,12 +13,12 @@ function _require_all($dir)
 }
 _require_all("./../src/");
 
-
 use NeoPHP\ConsoleTools\Interaction\Menu;
 use NeoPHP\ConsoleTools\Interaction\Prompt;
 use NeoPHP\ConsoleTools\Color;
 use NeoPHP\ConsoleTools\Table;
 use NeoPHP\ConsoleTools\Tools;
+use NeoPHP\Crypto\Wif;
 
 //global CLI Color thingy
 $c = new NeoPHP\ConsoleTools\Color();
@@ -62,7 +62,7 @@ function mainMenu() {
 	global $c;
 	
 	//clearing the screen:
-	NeoPHP\ConsoleTools\Tools::clearScreen();
+	Tools::clearScreen();
 
 	//print the header
 	printHeader(printIntro());
@@ -71,10 +71,10 @@ function mainMenu() {
 	$arrayMenuOptions = [
 		"🔐  Generate new ".$c->setBold()->s("encrypted")." wallet ",
 		"🚫  Generate new ".$c->setBold()->s("unencrypted")." wallet",
-		"🗝️  Encrypt an existing wallet using NEP2",
-		"💰  Donate some NEO/GAS to the creator or SecureNEO",
-		"💰  Donate some BTC to the creator or SecureNEO",
-		"💰  Donate some ETH to the creator or SecureNEO"
+		"🗝️  Encrypt an existing wallet",
+		"💰  Donate some NEO/GAS to the creator of SecureNEO",
+		"💰  Donate some BTC to the creator of SecureNEO",
+		"💰  Donate some ETH to the creator of SecureNEO"
 	];
 
 	//create a new menu
@@ -98,8 +98,10 @@ function mainMenu() {
 			//picked choice
 			if ($pickedChoice == 1) {
 				generateWallet(true);
-			} else {
+			} elseif ($pickedChoice == 2) {
 				generateWallet(false);
+			} elseif ($pickedChoice == 3) {
+				encryptPrivateKey();	
 			}
 			
 			//reset back to stuff
@@ -110,9 +112,65 @@ function mainMenu() {
 
 
 /**
- * generateEncryptedKey function.
+ * encryptPrivateKey function.
  * 
  * @access public
+ * @param mixed $error
+ * @return void
+ */
+function encryptPrivateKey($error=false) {
+	//globslize color
+	global $c;
+	
+	//clear the screen
+	Tools::clearScreen();	
+
+	printHeader("
+This screen allows you to encrypt a currently non-encrypted
+wallet. To continue, please enter the wallet Wif and then the 
+keyphrasa you'd like to encrypt the wallet with.");
+
+	if ($error)
+		echo $c->setBold()->c("red")->s($error)."\n\n";
+
+
+	$wif = (new Prompt("Enter the Wif"))->pickedValue();
+	$first = (new Prompt("Passphrase",false,false,true))->pickedValue();
+	$second = (new Prompt("Passphrase (again)",false,false,true))->pickedValue();
+	
+	if ($first == "" || $wif == "") { 
+		encryptPrivateKey("Passphrases and/or Wif can't be empty");
+		return;
+	} elseif ($first != $second) {
+		encryptPrivateKey("Passphrases don't match");
+		return;			
+	} elseif (strlen($first)<6) {
+		encryptPrivateKey("Passphrases too short (min. 6 characters)");
+		return;
+	} elseif (!WIF::validateWif($wif)) {
+		encryptPrivateKey("Invalid Wif");
+		return;		
+	} else {
+		echo "\nPlease wait while we encrypt your wallet...";	
+		//Open a wallet
+		$openWallet = new NeoPHP\NeoWallet($wif);
+		$openWallet->encryptWallet($first);
+		$walletPrintObject = walletPrint($openWallet);
+		//set the variables
+		echo "done\n\n";
+		echo $walletPrintObject;
+	}
+
+	new Prompt("Press <enter> to return to main menu");
+	
+}
+
+/**
+ * generateWallet function.
+ * 
+ * @access public
+ * @param mixed $encrypted
+ * @param bool $error (default: false)
  * @return void
  */
 function generateWallet($encrypted,$error = false) {
@@ -124,7 +182,7 @@ function generateWallet($encrypted,$error = false) {
 
 	if ($encrypted) {
 	//printing header
-	printHeader("This screen allows you to generate an encrypted wallet. To
+		printHeader("This screen allows you to generate an encrypted wallet. To
 continue, please enter a passphrase. This will be the password
 you need to enter when you want to decrypt this wallet.");
 	} else {
@@ -139,8 +197,8 @@ you need to enter when you want to decrypt this wallet.");
 	
 	//check if it's encrypted or not
 	if ($encrypted) {
-		$first = (new Prompt("Passphrase"))->pickedValue();
-		$second = (new Prompt("Passphrase (again)"))->pickedValue();
+		$first = (new Prompt("Passphrase",false,false,true))->pickedValue();
+		$second = (new Prompt("Passphrase (again)",false,false,true))->pickedValue();
 
 		//validate the key
 		if ($first == "") { 
@@ -152,55 +210,51 @@ you need to enter when you want to decrypt this wallet.");
 		} elseif (strlen($first)<6) {
 			generateWallet($encrypted, "Passphrases too short (min. 6 characters)");
 			return;
-		} else
-		
-		echo "\nPlease wait while we encrypt your wallet...";
-		$newWallet->encryptWallet($first);
+		} else {			
+			echo "\nPlease wait while we encrypt your wallet...";
+			$newWallet->encryptWallet($first);
+		}
 	} else {
 		echo "\nPlease wait while we create your wallet...";
 	}
-
+	
+	$walletPrintObject = walletPrint($newWallet);
 	//set the variables
-	if ($encrypted)
-		$encryptedKey = $newWallet->getEncryptedKey();
-	else
-		$wif = $newWallet->getWif();
-
-	$address = 	$newWallet->getAddress();
-	$privateKey = $newWallet->getPrivateKey();
-	$publicKey = $newWallet->getPublicKey();
 	echo "done\n\n";
-	
-	echo $c->setBold()->c("red")->s("Below is the important wallet information. Please write this down\nand keep it in a safe place!, this is not recoverable.")."\n";
-	
-	if ($encrypted)
-		echo "Your encrypted key:\t{$encryptedKey}\nYour passphrase:\t<What you've just entered>\n";
-	else
-		echo "The Wif key:\t\t{$wif}\n";
-		
-	echo "The address:\t\t".$newWallet->getAddress()."\n";
-	
-	echo "\nOther information:\n";
-	echo "The private key: \t{$privateKey}\n";
-	echo "The public key: \t{$publicKey}\n";
-	
-	echo "\n";
-	
+	echo $walletPrintObject;
+
 	new Prompt("Press <enter> to return to main menu");
-	
-	
 }
 
-
-
+function walletPrint($walletObject){
+	global $c;
+	
+	$return = "";
+	
+	if ($walletObject->isNEP2())
+		$encryptedKey = $walletObject->getEncryptedKey();
+	else
+		$wif = $walletObject->getWif();
+		
+	$address = 	$walletObject->getAddress();
+	$privateKey = $walletObject->getPrivateKey();
+	$publicKey = $walletObject->getPublicKey();
+	
+	$return .= $c->setBold()->c("red")->s("Below is the important wallet information. Please write this down\nand keep it in a safe place!, this is not recoverable.")."\n";	
+	if ($walletObject->isNEP2()) {
+		$return .= "Your encrypted key:\t{$encryptedKey}\nYour passphrase:\t<What you've just entered>\n";				
+	} else {
+		$return .= "The Wif key:\t\t{$wif}\n";
+	}
+	$return .= "The address:\t\t".$address."\n";
+	$return .= "\n".$c->setBold()->s('Other information (you probably don\'t need):')."\n";
+	$return .= "The private key: \t{$privateKey}\n";
+	$return .= "The public key: \t{$publicKey}\n";
+	$return .= "\n";
+	return $return;	
+}
 
 //invoke main menu function
 mainMenu();
-/*
-NeoPHP\ConsoleTools\Tools::clearScreen();
-generateWallet(true);
-echo "gelukt!";
-*/
-
 
 
