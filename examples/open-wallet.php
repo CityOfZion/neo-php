@@ -13,10 +13,12 @@
     }
     _require_all("./../src/");
 
-	$existingWallet = new NeoPHP\NeoWallet("L4XTNtTtbXHKQzTd7pstZHqfJ7viwDWxVoggPqaej38NLUvkMnNT");
+	//Existing wallet
+	$existingWallet = new NeoPHP\NeoWallet("6PYPUvTG4a5cpCEha4ew6GSx2WDsKnu2CQb3sVwkgzvnsGRt4gyYw9roaf","test1234");
 	print_r(array(
+		"isNep2" => (($existingWallet->isNep2()) ? ? "🔒" : "🚫"),
 		"wif" => $existingWallet->getWif(),
-		"address" => $existingWallet->getAddress()
+		"address" => $existingWallet->getAddress(),
 		"private_key" => $existingWallet->getPrivateKey(),
-		"public_key" => $existingWallet->getPublicKey(),
+		"public_key" => $existingWallet->getPublicKey()
 	));
