@@ -73,6 +73,20 @@ class KeyPair {
 	
 	
 	/**
+	 * getAddressFromPrivateKey function.
+	 * 
+	 * @access public
+	 * @static
+	 * @param mixed $privateKey
+	 * @return void
+	 */
+	public static function getAddressFromPrivateKey($privateKey) {
+		$publicKeyHex = self::getPublicKeyFromPrivateKey($privateKey);
+		return self::getAddressFromPublicKey($publicKeyHex);
+
+	}
+	
+	/**
 	 * createPrivateKey function.
 	 * 
 	 * @access private
