@@ -15,7 +15,7 @@ function _require_all($dir)
 _require_all("./../src/");
 
 //Existing wallet
-$existingNEP2EncryptedWallet = new NeoPHP\NeoWallet("6PYPUvTG4a5cpCEha4ew6GSx2WDsKnu2CQb3sVwkgzvnsGRt4gyYw9roaf", "test1234");
+$existingNEP2EncryptedWallet = new NeoPHP\NeoWallet("KyQ3kwf81o74ideWjwr9ntQnd2pJYxx7JhkqzZ5ppJN81NadWj7c");
 print_r([
     "isNEP2" => (($existingNEP2EncryptedWallet->isNEP2()) ? "🔒" : "🚫"),
     "wif" => $existingNEP2EncryptedWallet->getWif(),
