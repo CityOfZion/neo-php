@@ -9,14 +9,14 @@ use NeoPHP\Crypto\Base58;
 class WIF {
 	
 	/**
-	 * createWifFromPrivateKey function.
+	 * getWifForPrivateKey function.
 	 * 
 	 * @access public
 	 * @static
 	 * @param mixed $privateKey
 	 * @return void
 	 */
-	public static function createWifFromPrivateKey($privateKey) {	
+	public static function getWifForPrivateKey($privateKey) {	
 		return Base58::checkEncode($privateKey);
 	}
 	
