@@ -12,7 +12,7 @@ class NeoWallet {
 	 * @var mixed
 	 * @access private
 	 */
-	private $privateKeyHex = null,$wif = null, $publicKeyHex = null, $isEncrypted = false;
+	private $privateKeyHex = null,$wif = null, $publicKeyHex = null, $isEncrypted = false, $encryptedKey = null;
 	
 	/**
 	 * newNeoWallet function.
@@ -28,6 +28,7 @@ class NeoWallet {
 				
 			$this->isEncrypted = true;
 			$this->wif = Crypto\WIF::getWifForPrivateKey($this->privateKeyHex);
+			$this->encryptedKey = $addressInput;
 			
 		} else {
 			if (!$addressInput) {
@@ -67,13 +68,6 @@ class NeoWallet {
 	 * @return void
 	 */
 	public function getPublicKey() {
-		
-		if (!isset($this->wif))
-			throw new Exception("No WIF set");
-
-		if (!isset($this->privateKeyHex))
-			throw new Exception("No private key set");
-
 		if (!isset($this->publicKeyHex))
 			$this->publicKeyHex = Crypto\KeyPair::getPublicKeyFromPrivateKey($this->privateKeyHex);
 			
@@ -88,9 +82,6 @@ class NeoWallet {
 	 * @return void
 	 */
 	public function getWIF() {
-		if (!isset($this->wif))
-			$this->wif = Crypto\WIF::getWifForPrivateKey($this->privateKeyHex);
-
 		return $this->wif;
 	}
 	
@@ -101,22 +92,33 @@ class NeoWallet {
 	 * @return void
 	 */
 	public function getAddress() {
-		if (!isset($this->wif))
-			throw new Exception("No WIF set");
 
-		$publicKeyHex = $this->getPublicKey();
-		
+		$publicKeyHex = $this->getPublicKey();		
 		return Crypto\KeyPair::getAddressFromPublicKey($publicKeyHex);
 	}
 	
 	
 	/**
-	 * isNep2 function.
+	 * getEncryptedKey function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function isNep2() {
+	public function getEncryptedKey() {
+		if (!$this->isEncrypted)
+			throw new \Exception("This is not an encrypted key");
+			
+		return $this->encryptedKey;
+	}
+	
+	
+	/**
+	 * isNEP2 function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function isNEP2() {
 		return $this->isEncrypted;
 	}
 
