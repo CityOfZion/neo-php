@@ -15,10 +15,11 @@
 
 	//Existing wallet encrypted with NEP2
 	$existingWallet = new NeoPHP\NeoWallet("6PYPUvTG4a5cpCEha4ew6GSx2WDsKnu2CQb3sVwkgzvnsGRt4gyYw9roaf","test1234");
-	print_r(array(
-		"isNep2" => (($existingWallet->isNep2()) ? "🔒" : "🚫"),
+	print_r([
+		"isNEP2" => (($existingWallet->isNEP2()) ? "🔒" : "🚫"),
+		"encryptedKey" => $existingWallet->getEncryptedKey(),
 		"wif" => $existingWallet->getWif(),
 		"address" => $existingWallet->getAddress(),
 		"private_key" => $existingWallet->getPrivateKey(),
 		"public_key" => $existingWallet->getPublicKey()
-	));
+	]);

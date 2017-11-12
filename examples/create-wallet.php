@@ -15,10 +15,10 @@
 
 	//New wallet
 	$newWallet = new NeoPHP\NeoWallet();
-	print_r(array(
-		"isNep2" => (($newWallet->isNep2()) ? "🔒" : "🚫"),
+	print_r([
+		"isNEP2" => (($newWallet->isNEP2()) ? "🔒" : "🚫"),
 		"wif" => $newWallet->getWif(),
 		"address" => $newWallet->getAddress(),
 		"private_key" => $newWallet->getPrivateKey(),
 		"public_key" => $newWallet->getPublicKey()
-	));
+	]);
