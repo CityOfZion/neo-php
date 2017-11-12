@@ -10,10 +10,8 @@ class NEP2
     const NEP_HEADER = '0142';
     const NEP_FLAG = 'e0';
 
-    static public function encrypt($privateKeyHex, $passPhrase)
+    static public function encrypt($privateKeyHex, $keyPhrase)
     {
-	    echo $passPhrase;
-	    
         //get the address from the private key:
         $address = KeyPair::getAddressFromPrivateKey($privateKeyHex);
         
@@ -21,7 +19,7 @@ class NEP2
         $addressCheck = substr(Hash::SHA256(Hash::SHA256($address),false),0,8);
         
         //get derived data
-        $derived = bin2hex(Scrypt::calc($passPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
+        $derived = bin2hex(Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
         
         //split the derived data
         $derived_first = substr($derived, 0, 64);
@@ -47,11 +45,11 @@ class NEP2
      * @access public
      * @static
      * @param mixed $encryptedKey
-     * @param mixed $passPhrase
+     * @param mixed $keyPhrase
      * @return void
      */
 
-    static public function decrypt($encryptedKey, $passPhrase)
+    static public function decrypt($encryptedKey, $keyPhrase)
     {
 
         //decode the hex and get only first 78 chars
@@ -64,7 +62,7 @@ class NEP2
         $encryptedKey = substr($decodedHex, -64);
 
         //derived passphrase
-        $derived = bin2hex(Scrypt::calc($passPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
+        $derived = bin2hex(Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
 
         //split the derived data
         $derived_first = substr($derived, 0, 64);

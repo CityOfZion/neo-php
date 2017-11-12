@@ -25,10 +25,10 @@ class NeoWallet
      * @return void
      */
 
-    public function __construct($addressInput = false, $passPhrase = false)
+    public function __construct($addressInput = false, $keyPhrase = false)
     {
-        if ($addressInput && $passPhrase) {
-            if (!$this->privateKeyHex = Crypto\NEP2::decrypt($addressInput, $passPhrase))
+        if ($addressInput != "" && $keyPhrase != "") {
+            if (!$this->privateKeyHex = Crypto\NEP2::decrypt($addressInput, $keyPhrase))
                 throw new \Exception(sprintf("Can't decrypt key: %s", $addressInput));
 
             $this->isEncrypted = true;
@@ -55,16 +55,16 @@ class NeoWallet
 	 * encryptWallet function.
 	 * 
 	 * @access public
-	 * @param mixed $passPhrase
+	 * @param mixed $keyPhrase
 	 * @return void
 	 */
-	public function encryptWallet($passPhrase) {
+	public function encryptWallet($keyPhrase) {
 		
-		if (!$passPhrase || $passPhrase == "")
+		if (!$keyPhrase || $keyPhrase == "")
 			throw new \Exception("No passphrase set");
 	
 		$this->isEncrypted = true;
-		$this->encryptedKey = Crypto\NEP2::encrypt($this->privateKeyHex, $passPhrase);
+		$this->encryptedKey = Crypto\NEP2::encrypt($this->privateKeyHex, $keyPhrase);
 		
 	}
 
