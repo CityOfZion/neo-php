@@ -24,6 +24,31 @@ class Prompt {
 	    return $this->value;
 	}
 	
+	
+	/**
+	 * hide_term function.
+	 * 
+	 * @access private
+	 * @return void
+	 */
+	private function hide_term() {
+	    if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+	        echo "\033[8m";
+	    }
+	}
+	 
+	/**
+	 * restore_term function.
+	 * 
+	 * @access private
+	 * @return void
+	 */
+	private function restore_term() {
+	    if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+	        echo "\033[0m";
+	    }
+	}	
+	
 	/**
 	 * __construct function.
 	 * 
@@ -31,13 +56,18 @@ class Prompt {
 	 * @param mixed $question
 	 * @return void
 	 */
-	public function __construct($question, $defaultPick=false, $numbersOnly=false) {
+	public function __construct($question, $defaultPick=false, $numbersOnly=false, $passwordField=false) {
 		//echo the question
 		echo $question.((@$default == "") ? "" : " [{$default}]").": ";
 		//read stdin
-		$handle = fopen ("php://stdin","r");
+		$handle = fopen("php://stdin","r");
+		
+		//hide input
+		if ($passwordField) $this->hide_term();
 		//trim the handle
-		$line = trim(fgets($handle));			
+		$line = trim(fgets($handle));
+		//hide input
+		if ($passwordField) $this->restore_term();
 		//close the handle
 		fclose($handle);
 		
