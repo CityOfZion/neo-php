@@ -1,4 +1,5 @@
 <?php
+chdir(__DIR__);
 function _require_all($dir)
 {
     // require all php files
