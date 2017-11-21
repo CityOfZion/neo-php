@@ -7,7 +7,7 @@ The NeoPHP package and its contributors are not responsible for any damages or l
 
 #Installation
 ```
-composer require --prefer-dist itsvision/neo-php "dev-master"
+composer require --prefer-dist neo-php/neo-php "dev-master"
 ```
 
 #Examples
