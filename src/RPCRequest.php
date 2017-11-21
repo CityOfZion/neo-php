@@ -1,8 +1,6 @@
 <?php
 
-namespace NeoPHP\NeoRPC;
-
-use NeoPHP\NeoPHP;
+namespace NeoPHP;
 
 class RPCRequest
 {
