@@ -4,15 +4,15 @@ namespace NeoPHP;
 
 
 if (!extension_loaded('bcmath'))
-    throw new \ErrorException("Please install BCMATH");
+    throw new \ErrorException("NeoPHP requires PHP BCMATH");
 
 
 if (!extension_loaded('curl'))
-    throw new \ErrorException("Please install cURL");
+    throw new \ErrorException("NeoPHP requires PHP cURL");
 
 
 if (!extension_loaded('openssl'))
-    throw new \ErrorException("Please install cURL");
+    throw new \ErrorException("NeoPHP requires PHP OpenSSL");
 
 
 //use GMP if possible
