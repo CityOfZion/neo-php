@@ -5,7 +5,14 @@ This project aims to be a full Neo RPC library written in PHP.
 
 The NeoPHP package and its contributors are not responsible for any damages or lost funds.
 
-**Connecting**
+#Installation
+```
+composer require --prefer-dist itsvision/neo-php "dev-master"
+```
+
+#Examples
+
+**Connecting to a RPC Node**
 ```php
 $neo = new NeoRPC(); #use true as argument to go to testnet
 //$neo->setNode($neo->getFastestNode());
@@ -107,8 +114,6 @@ if ($neo->validateAddress("AXCLjFvfi47R1sKLrebbRJnqWgbcsncfro"))
 else
 	echo "Address is not valid";
 ```
-
-Be kind and credit me ❤️.
 
 Check out [Neodius](https://github.com/ITSVision/Neodius)
 
