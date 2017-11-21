@@ -1,7 +1,9 @@
 # neo-php
-This project aims to be a full Neo library written in PHP
+This project aims to be a full Neo RPC library written in PHP.
 
-## A Lot work in progress :)
+## Work in progress. Frequently updated. Use at your own discretion!
+
+The NeoPHP package and its contributors are not responsible for any damages or lost funds.
 
 **Connecting**
 ```php
