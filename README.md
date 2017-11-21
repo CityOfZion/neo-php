@@ -5,12 +5,12 @@ This project aims to be a full Neo RPC library written in PHP.
 
 The NeoPHP package and its contributors are not responsible for any damages or lost funds.
 
-#Installation
+# Installation
 ```
 composer require --prefer-dist neo-php/neo-php "dev-master"
 ```
 
-#Examples
+# Examples
 
 **Connecting to a RPC Node**
 ```php
