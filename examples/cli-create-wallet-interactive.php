@@ -70,12 +70,12 @@ function mainMenu() {
 	
 	//setup the menu options
 	$arrayMenuOptions = [
-		"🔐  Generate new ".$c->setBold()->s("encrypted")." wallet ",
-		"🚫  Generate new ".$c->setBold()->s("unencrypted")." wallet",
-		"🗝️  Encrypt an existing wallet",
-		"💰  Donate some NEO/GAS to the creator of SecureNEO",
-		"💰  Donate some BTC to the creator of SecureNEO",
-		"💰  Donate some ETH to the creator of SecureNEO"
+		" Generate new ".$c->setBold()->s("encrypted")." wallet ",
+		" Generate new ".$c->setBold()->s("unencrypted")." wallet",
+		" Encrypt an existing wallet",
+		" Donate some NEO/GAS to the creator of SecureNEO",
+		" Donate some BTC to the creator of SecureNEO",
+		" Donate some ETH to the creator of SecureNEO"
 	];
 
 	//create a new menu
