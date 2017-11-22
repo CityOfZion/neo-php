@@ -10,7 +10,66 @@ The NeoPHP package and its contributors are not responsible for any damages or l
 composer require --prefer-dist neo-php/neo-php "dev-master"
 ```
 
-# Examples
+# Workable parts
+
+## Wallet functions
+There are a couple of wallet functions:
+
+### Wallet initializers
+
+**Create new wallet**
+```php
+$newWallet = new NeoPHP\NeoWallet();
+```
+
+**Open current wallet**
+```php
+$wallet = new NeoPHP\NeoWallet("KzfUdP9MbsuL4Ejo1rTWve4JZfa7m1hc397JGXTHhNqJDAqMxZYu");
+```
+
+**Create new encrypted wallet**
+```php
+$wallet = new NeoPHP\NeoWallet();
+$wallet->encryptWallet("passphrase");
+```
+
+**Open an encrypted wallet**
+```php
+$wallet = new NeoPHP\NeoWallet("6PYMFa9gMAcBrTaAs8JyDrtoGLqb45P8dnmUfVVNcfLd9xKUdffSNfKWKp","passphrase");
+```
+
+**Encrypt an existing wallet**
+```php
+$wallet = new NeoPHP\NeoWallet("KzfUdP9MbsuL4Ejo1rTWve4JZfa7m1hc397JGXTHhNqJDAqMxZYu");
+$wallet->encryptWallet("passphrase");
+```
+
+### Wallet properties
+The wallet properties are currently:
+
+```php
+# BOOL is $wallet and encrypted wallet
+$wallet->isNEP2();
+
+# String get wif for initialized $wallet
+$wallet->getWif();
+
+# String get address for initialized $wallet
+$wallet->getAddress();
+
+# String get key for initialized $wallet
+$wallet->getPrivateKey()
+```
+
+### The future
+For now you can open wallets, get the private key, public key, wif, etc. You can also see if the wallet is encrypted. The future plans are that you can do transactions and invoke smart contracts.
+
+[There are a lot of examples](https://github.com/ITSVision/neo-php/tree/master/examples/)
+
+### NEO Cold wallet generator
+You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
+
+## The RPC
 
 **Connecting to a RPC Node**
 ```php
