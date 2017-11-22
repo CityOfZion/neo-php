@@ -7,7 +7,7 @@ The NeoPHP package and its contributors are not responsible for any damages or l
 
 # Installation
 ```
-composer require --prefer-dist itsvision/neo-php "dev-master"
+composer require --prefer-dist neo-php/neo-php "dev-master"
 ```
 
 # Examples
@@ -115,7 +115,12 @@ else
 	echo "Address is not valid";
 ```
 
-Check out [Neodius](https://github.com/ITSVision/Neodius)
+# Created by
+* **Benjamin de Bos** ([LinkedIn](https://www.linkedin.com/in/benjamindebos/)) - [Nodius (NEO Blockchain App)](https://github.com/ITSVision/Nodius) & [ITSVision](https://github.com/ITSVision)
+
+* **Dean van Dugteren** ([LinkedIn](https://www.linkedin.com/in/deanpress/)) - [Vidiato](https://vidiato.com) & [Click.DJ](https://click.dj)
+
+Check out [Nodius](https://github.com/ITSVision/Nodius)
 
 Licensed under [MIT License](License)
 
