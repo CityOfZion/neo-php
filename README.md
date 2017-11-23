@@ -1,5 +1,5 @@
 # neo-php
-This project aims to be a full Neo RPC library written in PHP.
+This project aims to be a full Neo RPC and wallet library written in PHP.
 
 ## Work in progress. Frequently updated. Use at your own discretion!
 
@@ -50,6 +50,9 @@ The wallet properties are currently:
 ```php
 # BOOL is $wallet and encrypted wallet
 $wallet->isNEP2();
+
+# String get the encrypted address, when isNEP2()
+$wallet->getEncryptedKey();
 
 # String get wif for initialized $wallet
 $wallet->getWif();
