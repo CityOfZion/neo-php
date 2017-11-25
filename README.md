@@ -10,7 +10,7 @@ The NeoPHP package and its contributors are not responsible for any damages or l
 composer require --prefer-dist neo-php/neo-php "dev-master"
 ```
 
-# Workable parts
+# Functioning features
 
 ## Wallet functions
 There are a couple of wallet functions:
