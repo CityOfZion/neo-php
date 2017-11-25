@@ -61,7 +61,7 @@ print_r($neo->getRawMemPool());
 print_r($neo->getRawTransaction("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7", true));
 
 //Query contract information, according to the contract script hash.
-print_r($neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"));
+print_r($neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b", "74657374"));
 
 //Returns the corresponding transaction output information (returned change), based on the specified hash and index.
 print_r($neo->getTxOut("0e3c0f477d80acda1c45650b3260e2410287ef78c291f6e02f0214daca2bd2cf", 0));

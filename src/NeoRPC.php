@@ -304,7 +304,11 @@ class NeoRPC
     {
         if (!$script_hash)
             throw new \Exception("Empty script hash");
-        return RPCRequest::request($this->active_node, "getstorage", [$script_hash]);
+
+        if(!$key)
+            throw new \Exception("Missing key");
+
+        return RPCRequest::request($this->active_node, "getstorage", [$script_hash, $key]);
     }
 
     /**

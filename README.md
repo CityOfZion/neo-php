@@ -150,7 +150,7 @@ $neo->getRawTransaction("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7
 **Query contract information, according to the contract script hash.**
 
 ```php
-$neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b");
+$neo->getStorage("c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b", "74657374");
 ```
 
 **Returns the corresponding transaction output information (returned change), based on the specified hash and index.**
