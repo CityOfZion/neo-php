@@ -180,7 +180,7 @@ else
 # Created by
 * **Benjamin de Bos** ([LinkedIn](https://www.linkedin.com/in/benjamindebos/)) - [Nodius (NEO Blockchain App)](https://github.com/ITSVision/Nodius) & [ITSVision](https://github.com/ITSVision)
 
-* **Dean van Dugteren** ([LinkedIn](https://www.linkedin.com/in/deanpress/)) - [Vidiato](https://vidiato.com) & [Click.DJ](https://click.dj)
+* **Dean van Dugteren** ([LinkedIn](https://www.linkedin.com/in/deanpress/)) - [NEO dApp Starter Kit](https://github.com/deanpress/neo-dapp-starter-kit), [Vidiato](https://vidiato.com), [Click.DJ](https://click.dj)
 
 Check out [Nodius](https://github.com/ITSVision/Nodius)
 
