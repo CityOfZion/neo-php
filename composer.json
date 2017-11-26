@@ -1,5 +1,5 @@
 {
-    "name": "neo-php/neo-php",
+    "name": "CityOfZion/neo-php",
     "description": "Make requests to Neo RPC nodes on the Neo blockchain. Make asset transactions, read data from the Blockchain etc.",
     "type": "library",
     "license": "MIT",
