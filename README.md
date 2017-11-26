@@ -1,5 +1,5 @@
 # neo-php
-This project aims to be a full Neo RPC and wallet library written in PHP.
+This project aims to be a full Neo implementation written in PHP.
 
 ## Work in progress. Frequently updated. Use at your own discretion!
 
