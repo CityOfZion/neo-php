@@ -300,7 +300,7 @@ class NeoRPC
      * @return void
      */
 
-    public function getStorage($script_hash)
+    public function getStorage($script_hash, $key)
     {
         if (!$script_hash)
             throw new \Exception("Empty script hash");
