@@ -33,7 +33,7 @@ class BcmathUtils
 
     public static function bcdechex($dec)
     {
-        if (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
+        if (extension_loaded('bcmath')) {
             $hex = '';
             $positive = $dec < 0 ? false : true;
             while ($dec) {
@@ -50,7 +50,7 @@ class BcmathUtils
                 $hex[$i] = dechex(hexdec($hex[$i]) + 1);
             return strrev($hex);
         } else {
-            throw new ErrorException("Please install BCMATH");
+            throw new \ErrorException("Please install BCMATH");
         }
     }
 
