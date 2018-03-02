@@ -7,16 +7,18 @@ $neo = new \NeoPHP\NeoRPC(true);
 $neo->setNode("http://seed5.neo.org:10332");
 
 //set test address
-$testAddress = "AXCLjFvfi47R1sKLrebbRJnqWgbcsncfro"; # Bittrex cold wallet
-$neoAssetID = "0xc56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b";
-$gasAssetID = "0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7";
+$testAddress = "AQgvqUqGqoswu8bjArbpQSU2yCeTb1ifDT"; # Bittrex cold wallet
+
+//Get balance
+print_r($neo->getBalance($testAddress));
 
 //Query the account asset information, according to the account address.
 print_r($neo->getAccountState($testAddress));
 
 //Query the asset information, based on the specified asset number.
-print_r($neo->getAssetState($neoAssetID));
-print_r($neo->getAssetState($gasAssetID));
+print_r($neo->getAssetState(NeoPHP\NeoAssets::ASSET_GAS));
+print_r($neo->getAssetState(NeoPHP\NeoAssets::ASSET_NEO));
+
 
 //Returns the hash of the tallest block in the main chain.
 print_r($neo->getBestBlockHash());
