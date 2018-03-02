@@ -81,6 +81,12 @@ $neo = new NeoRPC(); #use true as argument to go to testnet
 $neo->setNode("http://seed5.neo.org:10332");
 ```
 
+**Asking for balance using the CityOfZion API**
+
+```php
+$neo->getBalance($testAddress);
+```
+
 **Query the account asset information, according to the account address.**
 
 ```php
