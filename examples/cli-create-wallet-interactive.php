@@ -1,4 +1,6 @@
 <?php
+chdir(__FILE__);
+
 include("../vendor/autoload.php");
 
 use NeoPHP\ConsoleTools\Interaction\Menu;
