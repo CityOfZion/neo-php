@@ -28,13 +28,13 @@ class KeyPair
             '115792089210356248762697446949407573529996955224135760342422259061068512044369'
         );
 
-        $point = Point::mul(BcmathUtils::bin2bc("\x00" . hex2bin($privateKey)), $secp256k1_G);
+        $point = Point::mul(BCMathUtils::bin2bc("\x00" . hex2bin($privateKey)), $secp256k1_G);
 
-        $pubBinStr = "\x04" . str_pad(BcmathUtils::bc2bin($point->getX()), 32, "\x00", STR_PAD_LEFT)
-            . str_pad(BcmathUtils::bc2bin($point->getY()), 32, "\x00", STR_PAD_LEFT);
+        $pubBinStr = "\x04" . str_pad(BCMathUtils::bc2bin($point->getX()), 32, "\x00", STR_PAD_LEFT)
+            . str_pad(BCMathUtils::bc2bin($point->getY()), 32, "\x00", STR_PAD_LEFT);
 
         $pubBinStrCompressed = (intval(substr($point->getY(), -1, 1)) % 2 == 0 ? "\x02" : "\x03")
-            . str_pad(BcmathUtils::bc2bin($point->getX()), 32, "\x00", STR_PAD_LEFT);
+            . str_pad(BCMathUtils::bc2bin($point->getX()), 32, "\x00", STR_PAD_LEFT);
 
         return bin2hex($pubBinStrCompressed);
 
@@ -74,7 +74,7 @@ class KeyPair
         $stringToBeEncoded = $ripHash . $shaChecksum;
 
         //base58 wants decimal stuff, not hex
-        return Base58::encode(BcmathUtils::bchexdec($stringToBeEncoded));
+        return Base58::encode(BCMathUtils::bchexdec($stringToBeEncoded));
 
     }
 

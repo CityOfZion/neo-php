@@ -2,7 +2,7 @@
 
 namespace NeoPHP\Crypto;
 
-class BcmathUtils
+class BCMathUtils
 {
 
     public static function bcrand($min, $max = false)
@@ -57,7 +57,7 @@ class BcmathUtils
     public static function bcand($x, $y)
     {
         if (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
-            return self::_bcbitwise_internal($x, $y, 'BcmathUtils::_bcand');
+            return self::_bcbitwise_internal($x, $y, 'BCMathUtils::_bcand');
         } else {
             throw new ErrorException("Please install BCMATH");
         }

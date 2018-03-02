@@ -29,7 +29,7 @@ class Base58
 
         $string = $string . substr(Hash::SHA256(Hash::SHA256($string)), 0, 4);
 
-        $base58 = self::encode(BcMathUtils::bin2bc($string));
+        $base58 = self::encode(BCMathUtils::bin2bc($string));
         for ($i = 0; $i < strlen($string); $i++) {
             if ($string[$i] != "\x00")
                 break;
@@ -53,7 +53,7 @@ class Base58
 
     public static function checkDecode($string, $removeLeadingBytes = 1, $removeTrailingBytes = 4, $removeCompression = true)
     {
-        $string = bin2hex(BcMathUtils::bc2bin(self::decode($string)));
+        $string = bin2hex(BCMathUtils::bc2bin(self::decode($string)));
 
         //if trailing bytes: Network type
         if ($removeLeadingBytes)
@@ -82,7 +82,7 @@ class Base58
 
     public static function encode($num, $length = 58)
     {
-        return BcMathUtils::dec2base($num, $length, '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
+        return BCMathUtils::dec2base($num, $length, '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
     }
 
     /**
@@ -96,7 +96,7 @@ class Base58
 
     public static function decode($addr, $length = 58)
     {
-        return BcMathUtils::base2dec($addr, $length, '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
+        return BCMathUtils::base2dec($addr, $length, '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
     }
 
 }	

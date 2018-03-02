@@ -52,7 +52,7 @@ class WIF
     public static function validateWif($wif)
     {
         //validate the WIF
-        $uncompressedWif = BcMathUtils::bc2bin(Base58::decode($wif));
+        $uncompressedWif = BCMathUtils::bc2bin(Base58::decode($wif));
 
         //filter out last 4 bytes
         $uncompressedWifNoChecksum = substr($uncompressedWif, 0, -4);

@@ -53,7 +53,7 @@ class NEP2
     {
 
         //decode the hex and get only first 78 chars
-        $decodedHex = substr(bin2hex(BcMathUtils::bc2bin(Base58::decode($encryptedKey))), 0, 78);
+        $decodedHex = substr(bin2hex(BCMathUtils::bc2bin(Base58::decode($encryptedKey))), 0, 78);
 
         //get address checksum
         $addressCheck = substr($decodedHex, 6, 8);
@@ -116,7 +116,7 @@ class NEP2
             $n2 = intval(substr($str2, $i, 2), 16);
             //we need to pad this thing over here, PHP's dechex will not pad
             //a "1" with a zero...for some reason? i donno
-            $result .= str_pad(BcmathUtils::bcdechex($n1 ^ $n2), 2, 0, STR_PAD_LEFT);
+            $result .= str_pad(BCMathUtils::bcdechex($n1 ^ $n2), 2, 0, STR_PAD_LEFT);
         }
 
         return $result;

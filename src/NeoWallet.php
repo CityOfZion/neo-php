@@ -154,6 +154,98 @@ class NeoWallet
         return $this->isEncrypted;
     }
     
+    
+    /**
+     * transferAssets function.
+     * 
+     * @access public
+     * @param mixed $toAddress
+     * @param mixed $asset
+     * @param int $amount (default: 0)
+     * @return void
+     */
+    public function createTransaction($asset = "", $amount = 0, $toAddress = "")
+    {
+        if (trim($asset) == "")
+            throw new \Exception("Invalid or empty asset id");
+		
+        if (floatval($amount) <= 0)
+            throw new \Exception("Amount must be greater than 0");
+		
+        if (trim($toAddress) == "")
+            throw new \Exception("Address can't be empty");
+		
+		echo "\n\n--------SENDING FUNDS---------\n";
+		echo "What:\t\t{$asset}\n";
+		echo "Address:\t{$toAddress}\n";
+		echo "Amount:\t\t{$amount}\n";
+		echo "------------------------------\n\n\n";
+		
+		
+		//set empty variables
+		$sortedUnspents = 0;
+		$neededForTransaction = array();
+		
+		//Do a call to COZ for the balance
+		$NeoRPC = new NeoRPC($this->isTestNet);
+		$balance = $NeoRPC->getBalance($this->getAddress());
 
+		if ($asset == NeoAssets::ASSET_NEO) {
+			if ($balance['NEO']['balance'] < $amount) {
+	            throw new \Exception("Not enough NEO to do this transaction, only {$balance['NEO']['balance']} available");			
+			}
+			$sortedUnspents = $balance['NEO']['unspent'];
+			
+		} elseif ($asset == NeoAssets::ASSET_GAS){
+			if ($balance['GAS']['balance'] < $amount) {
+	            throw new \Exception("Not enough GAS to do this transaction, only {$balance['GAS']['balance']} available");			
+			}
+			$sortedUnspents = $balance['GAS']['unspent'];			
+		}
+
+		//sorting values descending
+		usort($sortedUnspents, function($a, $b){
+			return ($a['value'] < $b['value']) ? -1 : 1;
+		});
+
+
+		$runningAmount = 0.0;
+        $index = 0;
+        $count = 0;
+        
+        while ($runningAmount < $amount) {
+            $neededForTransaction[] = $sortedUnspents[$index];
+			$runningAmount = $runningAmount + $sortedUnspents[$index]['value'];
+            $index++;
+            $count++;
+        }
+
+		//start the count
+		$inputData = [$count];
+		
+		//get the transactions
+		foreach ($neededForTransaction as $t) {
+			$reversedBytes = strrev(hex2bin($t['txid']));
+			$inputData = array_merge($inputData, unpack("C*",$reversedBytes), array($t['index'],$t['index']));
+		}
+
+		
+		$string = "";
+		foreach ($inputData as $i)
+			$string .= dechex($i);
+
+		echo "Expect: 1d6b2a23526c9a46e3b6b87f6b8ac31d0654a84862d33088ba3aa2fe94d0801010\n";
+		echo "String: {$string}\n";
+		echo "Length: ".strlen($string);
+		echo "\n\n";
+
+		hex2bin($string);
+		
+		
+        
+		
+		echo "proceeding";
+		
+    }
 
 }

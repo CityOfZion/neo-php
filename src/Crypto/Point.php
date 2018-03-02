@@ -2,7 +2,7 @@
 
 namespace NeoPHP\Crypto;
 
-use NeoPHP\Crypto\BcmathUtils;
+use NeoPHP\Crypto\BCMathUtils;
 
 class Point
 {
@@ -181,10 +181,10 @@ class Point
                 $result = $p1;
                 while (bccomp($i, 1) == 1) {
                     $result = self::double($result);
-                    if (bccomp(BcmathUtils::bcand($e3, $i), '0') != 0 && bccomp(BcmathUtils::bcand($e, $i), '0') == 0) {
+                    if (bccomp(BCMathUtils::bcand($e3, $i), '0') != 0 && bccomp(BCMathUtils::bcand($e, $i), '0') == 0) {
                         $result = self::add($result, $p1);
                     }
-                    if (bccomp(BcmathUtils::bcand($e3, $i), 0) == 0 && bccomp(BcmathUtils::bcand($e, $i), 0) != 0) {
+                    if (bccomp(BCMathUtils::bcand($e3, $i), 0) == 0 && bccomp(BCMathUtils::bcand($e, $i), 0) != 0) {
                         $result = self::add($result, $negative_self);
                     }
                     $i = bcdiv($i, 2);
