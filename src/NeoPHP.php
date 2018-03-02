@@ -2,7 +2,6 @@
 
 namespace NeoPHP;
 
-
 if (!extension_loaded('bcmath'))
     throw new \ErrorException("NeoPHP requires PHP BCMATH");
 

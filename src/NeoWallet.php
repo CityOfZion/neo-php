@@ -1,21 +1,10 @@
 <?php
-
 namespace NeoPHP;
 
 class NeoWallet
 {
 
-
-    /**
-     * privateKeyHex
-     *
-     * (default value: null,$wif = null, $publicKeyHex = null)
-     *
-     * @var mixed
-     * @access private
-     */
-
-    private $privateKeyHex = null, $wif = null, $publicKeyHex = null, $isEncrypted = false, $encryptedKey = null;
+    private $privateKeyHex = null, $wif = null, $publicKeyHex = null, $isEncrypted = false, $encryptedKey = null, $isTestNet = false;
 
 
     /**
@@ -27,6 +16,7 @@ class NeoWallet
 
     public function __construct($addressInput = false, $keyPhrase = false)
     {
+	    
         if ($addressInput != "" && $keyPhrase != "") {
             if (!$this->privateKeyHex = Crypto\NEP2::decrypt($addressInput, $keyPhrase))
                 throw new \Exception(sprintf("Can't decrypt key: %s", $addressInput));
@@ -48,6 +38,17 @@ class NeoWallet
             }
         }
         return $this;
+    }
+
+    /**
+     * setTestNet function.
+     * 
+     * @access public
+     * @param mixed $isTestNet
+     * @return void
+     */
+    public function setTestNet($isTestNet=true) {
+		$this->isTestNet = $isTestNet;
     }
 
 
@@ -152,5 +153,7 @@ class NeoWallet
     {
         return $this->isEncrypted;
     }
+    
+
 
 }
