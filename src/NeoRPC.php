@@ -455,12 +455,10 @@ class NeoRPC
      * @return void
      */
     public function getBalance($address="") {
-	    
 	    if ($this->useMainNet)
-	    #to fix :-)
-			return json_decode(file_get_contents("http://testnet-api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
-		else
 			return json_decode(file_get_contents("http://api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
+		else
+			return json_decode(file_get_contents("http://testnet-api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
 	    
     }
 
