@@ -381,7 +381,21 @@ class NeoRPC
     {
         return self::doRPCRequest($this->active_node, "getpeers");
     }
-   
+
+
+
+    /**
+     * invokeFunction function.
+     * 
+     * @access public
+     * @param mixed $script_hash
+     * @param mixed $parameters
+     * @return void
+     */
+    public function invokeFunction($script_hash, $parameters)
+    {
+        return self::doRPCRequest($this->active_node,"invokefunction",array_merge([$script_hash],$parameters));
+    }   
 
 	/**
 	 * doRPCRequest function.
@@ -395,7 +409,7 @@ class NeoRPC
 	 */
 	public static function doRPCRequest($node = false, $method = false, $params = [])
     {
-
+	    
         if (!$node)
             throw new \Exception("No node defined");
 
@@ -406,9 +420,9 @@ class NeoRPC
             "jsonrpc" => "2.0",
             "method" => $method,
             "params" => $params,
-            "id" => 0,
-        ]);
-
+            "id" => 1,
+        ],JSON_PRETTY_PRINT);
+        
         $ch = curl_init($node);
 
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -439,7 +453,9 @@ class NeoRPC
             $error = $json_return['error']['message'];
             throw new \Exception("RPC Error message: " . $error);
         }
-
+		
+		
+		
         curl_close($ch);
         return $json_return['result'];
     }
@@ -459,9 +475,6 @@ class NeoRPC
 			return json_decode(file_get_contents("http://api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
 		else
 			return json_decode(file_get_contents("http://testnet-api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
-	    
     }
 
-
-    
 }
