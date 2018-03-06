@@ -1,5 +1,16 @@
-# neo-php
-This project aims to be a full Neo implementation written in PHP.
+<p align="center">
+  <img
+    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png"
+    width="125px;">
+</p>
+
+<h1 align="center">neo-php</h1>
+
+<p align="center">
+	This project aims to be a full Neo implementation written in PHP.
+</p>
+
+
 
 ## Work in progress. Frequently updated. Use at your own discretion!
 
