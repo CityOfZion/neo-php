@@ -1,7 +1,11 @@
 <?php
 namespace NeoPHP;
-
-class NEP5
+/**
+ * Class NeoRPC
+ *
+ * @package PHPNeo
+ */
+class NeoNEP5
 {
    /**
      * getNEP5Balance function.

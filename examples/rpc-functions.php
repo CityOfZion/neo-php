@@ -7,8 +7,8 @@ $rpcObject = new \NeoPHP\NeoRPC(true);
 $rpcObject->setNode("https://seed1.redpulse.com:10331");
 
 //get the NEP5 token
-print_r("ZPT Balance: ".\NeoPHP\NEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_ZPT,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
-print_r("TKY Balance: ".\NeoPHP\NEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_TKY,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
+print_r("ZPT Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_ZPT,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
+print_r("TKY Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_TKY,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
 
 //set test address
 $testAddress = "AQgvqUqGqoswu8bjArbpQSU2yCeTb1ifDT"; # Bittrex cold wallet
