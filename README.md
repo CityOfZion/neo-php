@@ -5,35 +5,53 @@
 </p>
 
 <h1 align="center">neo-php</h1>
-
 <p align="center">
-	This project aims to be a full Neo implementation written in PHP.
+	PHP SDK for the NEO blockchain. 
 </p>
 
 
+## Overview
 
-## Work in progress. Frequently updated. Use at your own discretion!
+### What does it currently do
+- Installation though Composer
+- Open, create and encrypt unencrypted wallets
+- Create and open encrypted wallet
+- Minimal NEP-5 interation (token balance requesting and Smart Contract parameter factory)
+- All RPC functions are integrated. 
+- Address validation
+- It contains a cold wallet generator
 
-The NeoPHP package and its contributors are not responsible for any damages or lost funds.
+### What will (should) it do
+- Do wallet transactions for: NEO, GAS and NEP-5 Tokens
+- Build, deploy, and run smart contracts
+- A lot more
 
-# Installation
+### Documentation
+Currently there isn't much documentation besides this Readme. We could use it! Do a PR if you'd like to help us :). [Though there are a lot of examples](https://github.com/ITSVision/neo-php/tree/master/examples/)
+
+### Get help or give help
+
+- Open a new [issue](https://github.com/CityOfZion/neo-php/issues/new) if you encounter a problem.
+- Or ping **@Deanpress**  or **@Woodehh** on the [NEO Discord](https://discord.gg/R8v48YA).
+- Pull requests welcome. You can help with wallet functionality, writing tests
+  or documentation, or on any other feature you deem awesome.
+
+## Getting started
+To start using neo-php you need to have [composer](https://getcomposer.org/) installed. When you're ready openup a terminal and type in:
 ```
 composer require cityofzion/neo-php @dev
 ```
+From there on include the autoloader and you can use all of the juicy neo-php features.
 
-# Functioning features
+### Wallet functionality:
+The wallet part of neo-php consists out of initializers that have multiple functions.
 
-## Wallet functions
-There are a couple of wallet functions:
-
-### Wallet initializers
-
-**Create new wallet**
+**Create new unencrypted wallet**
 ```php
 $newWallet = new NeoPHP\NeoWallet();
 ```
 
-**Open current wallet**
+**Open an unencrypted wallet**
 ```php
 $wallet = new NeoPHP\NeoWallet("KzfUdP9MbsuL4Ejo1rTWve4JZfa7m1hc397JGXTHhNqJDAqMxZYu");
 ```
@@ -55,35 +73,32 @@ $wallet = new NeoPHP\NeoWallet("KzfUdP9MbsuL4Ejo1rTWve4JZfa7m1hc397JGXTHhNqJDAqM
 $wallet->encryptWallet("passphrase");
 ```
 
-### Wallet properties
-The wallet properties are currently:
-
+**BOOL to test if wallet is an encrypted wallet**
 ```php
-# BOOL is $wallet and encrypted wallet
 $wallet->isNEP2();
+```
 
-# String get the encrypted address, when isNEP2()
+**String get the encrypted address, when isNEP2()**
+```php
 $wallet->getEncryptedKey();
+```
 
-# String get wif for initialized $wallet
+**String get wif for initialized wallet**
+```php
 $wallet->getWif();
+```
 
-# String get address for initialized $wallet
+**String get address for initialized wallet**
+```php
 $wallet->getAddress();
+```
 
-# String get key for initialized $wallet
+**String get key for initialized wallet**
+```php
 $wallet->getPrivateKey()
 ```
 
-### The future
-For now you can open wallets, get the private key, public key, wif, etc. You can also see if the wallet is encrypted. The future plans are that you can do transactions and invoke smart contracts.
-
-[There are a lot of examples](https://github.com/ITSVision/neo-php/tree/master/examples/)
-
-### NEO Cold wallet generator
-You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
-
-## NEP-5 integration
+### Minimal NEP-5 integration
 We're working on NEP5 integration. For now we're able to request the majority of the NEP5 tokens balance with a specified address.
 
 **Requesting NEP-5 Token balance for address**
@@ -147,7 +162,8 @@ $rpcObject->setNode("https://seed1.redpulse.com:10331");
 	</tr>
 </table>
 
-## The RPC
+### The RPC
+The RPC is the way to talk to the different blockchain nodes. For example: We use it to request the balance for the NEP-5 tokens.
 
 **Connecting to a RPC Node**
 ```php
@@ -258,12 +274,15 @@ else
 	echo "Address is not valid";
 ```
 
+### NEO Cold wallet generator
+You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
+
 # Created by
-* **Benjamin de Bos** ([LinkedIn](https://www.linkedin.com/in/benjamindebos/)) - [Nodius (NEO Blockchain App)](https://github.com/ITSVision/Nodius) & [ITSVision](https://github.com/ITSVision)
+* **Benjamin de Bos** ([LinkedIn](https://www.linkedin.com/in/benjamindebos/)) - [Neodius (NEO Blockchain App)](https://github.com/Cityofzion/Neodius) & [ITSVision](https://github.com/ITSVision)
 
 * **Dean van Dugteren** ([LinkedIn](https://www.linkedin.com/in/deanpress/)) - [NEO dApp Starter Kit](https://github.com/deanpress/neo-dapp-starter-kit), [Vidiato](https://vidiato.com), [Click.DJ](https://click.dj)
 
-Check out [Nodius](https://github.com/ITSVision/Nodius)
+Check out [Neodius](https://github.com/ITSVision/Nodius)
 
 Licensed under [MIT License](License)
 
