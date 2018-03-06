@@ -72,11 +72,80 @@ For now you can open wallets, get the private key, public key, wif, etc. You can
 ### NEO Cold wallet generator
 You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
 
+## NEP-5 integration
+We're working on NEP5 integration. For now we're able to request the majority of the NEP5 tokens balance with a specified address.
+
+**Requesting NEP-5 Token balance for address**
+```php
+$rpcObject = new NeoRPC();
+$rpcObject->setNode("https://seed1.redpulse.com:10331");
+\NeoPHP\NEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_ZPT,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X");
+\NeoPHP\NEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_TKY,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")
+```
+
+**Right now we have the following "assets" which you can request the balance for:**
+
+<table>
+	<thead>
+		<tr>
+			<th>Token</th>
+			<th>Asset constant</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Ontology</td>
+			<td>NeoPHP\NeoAssets::ASSET_ONT</td>
+		</tr>
+		<tr>
+			<td>THEKEY</td>
+			<td>NeoPHP\NeoAssets::ASSET_TKY</td>
+		</tr>
+		<tr>
+			<td>Congierce token</td>
+			<td>NeoPHP\NeoAssets::ASSET_CGE</td>
+		</tr>		
+		<tr>
+			<td>Alphacat</td>
+			<td>NeoPHP\NeoAssets::ASSET_ACAT</td>
+		</tr>		
+		<tr>
+			<td>Narrative Token</td>
+			<td>NeoPHP\NeoAssets::ASSET_NRVE</td>
+		</tr>
+		<tr>
+			<td>Red Pulse</td>
+			<td>NeoPHP\NeoAssets::ASSET_RPX</td>
+		</tr>
+		<tr>
+			<td>DeepBrainChain</td>
+			<td>NeoPHP\NeoAssets::ASSET_DBC</td>
+		</tr>
+		<tr>
+			<td>QLink</td>
+			<td>NeoPHP\NeoAssets::ASSET_QLC</td>
+		</tr>
+		<tr>
+			<td>Trinity Network Credit</td>
+			<td>NeoPHP\NeoAssets::ASSET_TN</td>
+		</tr>
+		<tr>
+			<td>Zeepin Token</td>
+			<td>NeoPHP\NeoAssets::ASSET_ZPT</td>
+		</tr>
+		<tr>
+			<td>PikcioChain</td>
+			<td>NeoPHP\NeoAssets::ASSET_PKC</td>
+		</tr>		
+		
+	</tbody>
+</table>
+
 ## The RPC
 
 **Connecting to a RPC Node**
 ```php
-$neo = new NeoRPC(); #use true as argument to go to testnet
+$neo = new NeoRPC(); #use false as argument to go to testnet
 //$neo->setNode($neo->getFastestNode());
 $neo->setNode("http://seed5.neo.org:10332");
 ```
