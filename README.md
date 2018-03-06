@@ -97,59 +97,54 @@ $rpcObject->setNode("https://seed1.redpulse.com:10331");
 **Right now we have the following "assets" which you can request the balance for:**
 
 <table>
-	<thead>
-		<tr>
-			<th>Token</th>
-			<th>Asset constant</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Ontology</td>
-			<td>NeoPHP\NeoAssets::ASSET_ONT</td>
-		</tr>
-		<tr>
-			<td>THEKEY</td>
-			<td>NeoPHP\NeoAssets::ASSET_TKY</td>
-		</tr>
-		<tr>
-			<td>Congierce token</td>
-			<td>NeoPHP\NeoAssets::ASSET_CGE</td>
-		</tr>		
-		<tr>
-			<td>Alphacat</td>
-			<td>NeoPHP\NeoAssets::ASSET_ACAT</td>
-		</tr>		
-		<tr>
-			<td>Narrative Token</td>
-			<td>NeoPHP\NeoAssets::ASSET_NRVE</td>
-		</tr>
-		<tr>
-			<td>Red Pulse</td>
-			<td>NeoPHP\NeoAssets::ASSET_RPX</td>
-		</tr>
-		<tr>
-			<td>DeepBrainChain</td>
-			<td>NeoPHP\NeoAssets::ASSET_DBC</td>
-		</tr>
-		<tr>
-			<td>QLink</td>
-			<td>NeoPHP\NeoAssets::ASSET_QLC</td>
-		</tr>
-		<tr>
-			<td>Trinity Network Credit</td>
-			<td>NeoPHP\NeoAssets::ASSET_TN</td>
-		</tr>
-		<tr>
-			<td>Zeepin Token</td>
-			<td>NeoPHP\NeoAssets::ASSET_ZPT</td>
-		</tr>
-		<tr>
-			<td>PikcioChain</td>
-			<td>NeoPHP\NeoAssets::ASSET_PKC</td>
-		</tr>		
-		
-	</tbody>
+	<tr>
+		<th>Token</th>
+		<th>Asset constant</th>
+	</tr>
+	<tr>
+		<td>Ontology</td>
+		<td>NeoPHP\NeoAssets::ASSET_ONT</td>
+	</tr>
+	<tr>
+		<td>THEKEY</td>
+		<td>NeoPHP\NeoAssets::ASSET_TKY</td>
+	</tr>
+	<tr>
+		<td>Congierce token</td>
+		<td>NeoPHP\NeoAssets::ASSET_CGE</td>
+	</tr>		
+	<tr>
+		<td>Alphacat</td>
+		<td>NeoPHP\NeoAssets::ASSET_ACAT</td>
+	</tr>		
+	<tr>
+		<td>Narrative Token</td>
+		<td>NeoPHP\NeoAssets::ASSET_NRVE</td>
+	</tr>
+	<tr>
+		<td>Red Pulse</td>
+		<td>NeoPHP\NeoAssets::ASSET_RPX</td>
+	</tr>
+	<tr>
+		<td>DeepBrainChain</td>
+		<td>NeoPHP\NeoAssets::ASSET_DBC</td>
+	</tr>
+	<tr>
+		<td>QLink</td>
+		<td>NeoPHP\NeoAssets::ASSET_QLC</td>
+	</tr>
+	<tr>
+		<td>Trinity Network Credit</td>
+		<td>NeoPHP\NeoAssets::ASSET_TN</td>
+	</tr>
+	<tr>
+		<td>Zeepin Token</td>
+		<td>NeoPHP\NeoAssets::ASSET_ZPT</td>
+	</tr>
+	<tr>
+		<td>PikcioChain</td>
+		<td>NeoPHP\NeoAssets::ASSET_PKC</td>
+	</tr>
 </table>
 
 ## The RPC
