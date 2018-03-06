@@ -26,6 +26,6 @@ if (!defined("USE_EXT"))
  */
 class NeoPHP
 {
-    const NEO_PHP_VERSION = '0.0.1';
+    const NEO_PHP_VERSION = '0.3.0';
 }
 
