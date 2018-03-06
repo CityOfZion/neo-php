@@ -1,5 +1,4 @@
 <?php
-
 namespace NeoPHP\Tools;
 
 class StringTools
@@ -51,6 +50,18 @@ class StringTools
         }
 
         return is_array($i) ? $i[1] : $i;
+    }
+    
+    
+    /**
+     * reverseHex function.
+     * 
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function reverseHex($hexString) {
+	   return bin2hex(strrev(hex2bin($hexString)));
     }
     
 
