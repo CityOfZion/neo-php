@@ -1,11 +1,11 @@
 {
     "name": "cityofzion/neo-php",
-    "description": "Make requests to Neo RPC nodes on the Neo blockchain. Make asset transactions, read data from the Blockchain etc.",
+    "description": "NEO blockchain implementation for PHP",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": {
+        "psr-0": {
             "NeoPHP\\": "src"
         }
     }  
