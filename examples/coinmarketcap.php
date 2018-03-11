@@ -32,7 +32,7 @@ print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_TNC));
 print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_ZPT));
 
 
-//get globa data
+//get global data
 print_r($cmcObject->getGlobalData());
 
 

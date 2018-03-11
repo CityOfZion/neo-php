@@ -20,6 +20,7 @@
 - All RPC functions are integrated. 
 - Address validation
 - It contains a cold wallet generator
+- Coinmarketcap API integration
 
 ### What will (should) it do
 - Do wallet transactions for: NEO, GAS and NEP-5 Tokens
@@ -276,6 +277,40 @@ else
 
 ### NEO Cold wallet generator
 You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
+
+### CoinMarketCap integration
+Neo-PHP Features a full CoinMarketCap API integration. 
+
+**To initiate the object**
+```php
+//setup coinmarketcap object
+$cmcObject = new \NeoPHP\CoinMarketCap();
+
+//set currency, if not set it defaults to USD
+$cmcObject->setCurrency("EUR");
+```
+
+**To request the ticker**
+```php
+print_r($cmcObject->getTicker());
+```
+Arguments are start and limit. Similar to MySQL start and limit
+
+**To request the ticker for a specific currency**
+```php
+//get ticket for asset GAS
+print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_GAS));
+//get ticket for asset NEO
+print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_NEO));
+```
+[Check NEP-5 asset constants of this documentation for the right assets](#minimal-nep-5-integration)
+
+**To get global data**
+```php
+//get global data
+print_r($cmcObject->getGlobalData());
+```
+[Check NEP-5 asset constants of this documentation for the right assets](#minimal-nep-5-integration)
 
 # Created by
 * **Benjamin de Bos** ([LinkedIn](https://www.linkedin.com/in/benjamindebos/)) - [Neodius (NEO Blockchain App)](https://github.com/Cityofzion/Neodius) & [ITSVision](https://github.com/ITSVision)
