@@ -1,5 +1,9 @@
 <?php
 namespace NeoPHP;
+
+use NeoPHP\Tools\NetworkRequest;
+use NeoPHP\Assets\NeoAssets;
+
 /**
  * Class NeoRPC
  *
@@ -35,6 +39,15 @@ class NeoRPC
      */
     var $useMainNet;
 
+
+	/**
+	 * rpcOutput
+	 * 
+	 * @var mixed
+	 * @access private
+	 */
+	private static $rpcOutput;
+	
     /**
      * __construct function.
      *
@@ -175,7 +188,10 @@ class NeoRPC
     {
         if (!$asset)
             throw new \Exception("Undefined asset");
-        return self::doRPCRequest($this->active_node, "getassetstate", [$asset]);
+        
+        $assetHash = NeoAssets::getHash($asset);
+        
+        return self::doRPCRequest($this->active_node, "getassetstate", [$assetHash]);
     }
 
     /**
@@ -408,56 +424,45 @@ class NeoRPC
 	 * @return void
 	 */
 	public static function doRPCRequest($node = false, $method = false, $params = [])
-    {
-	    
+    {	    
+
+		//set node
         if (!$node)
             throw new \Exception("No node defined");
 
+		//set method
         if (!$method)
             throw new \Exception("No method defined");
 
-        $data_array = json_encode([
-            "jsonrpc" => "2.0",
-            "method" => $method,
-            "params" => $params,
-            "id" => 1,
-        ],JSON_PRETTY_PRINT);
-        
-        $ch = curl_init($node);
+		//create new network request
+		$r = new NetworkRequest();
+		//set agent
+		$r->setAgent('Neo-PHP ' . NeoPHP::NEO_PHP_VERSION);
+		//data array
+		$data_array = json_encode([
+		    "jsonrpc" => "2.0",
+		    "method" => $method,
+		    "params" => $params,
+		    "id" => 1,
+		],JSON_PRETTY_PRINT);
 
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_array);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'PHPNeo ' . NeoPHP::NEO_PHP_VERSION);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+		//set header
+		$r->setHeaders(array(
             'Content-Type: application/json',
             'Content-Length: ' . strlen($data_array)
-        ]);
-
-
-        $result = curl_exec($ch);
-        $errno = curl_errno($ch);
-
-        if ($result === false) {
-            throw new \Exception("cURL Error: " . curl_error($ch));
-            curl_close($ch);
-        }
-
-        $json_return = json_decode($result, true);
-        if (json_last_error() != 0)
-            throw new \Exception("Json not valid: " . json_last_error_msg());
-
-
-        if (isset($json_return['error'])) {
-            $error = $json_return['error']['message'];
-            throw new \Exception("RPC Error message: " . $error);
-        }
+		));
 		
-		
-		
-        curl_close($ch);
-        return $json_return['result'];
+		//printing			
+		if ($result = $r->post($node,$data_array)) {
+	        if (isset($result['error'])) {
+	            $error = $json_return['error']['message'];
+	            throw new \Exception("RPC Error message: " . $error);
+	        }
+	        return $result['result'];	        
+		} else {
+            throw new \Exception("cURL Error: " . $request->getErrorMessage());
+		}
+
     }
     
     
