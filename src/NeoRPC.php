@@ -173,6 +173,7 @@ class NeoRPC
     {
         if (!$address)
             throw new \Exception("Undefined address");
+            
         return self::doRPCRequest($this->active_node, "getaccountstate", [$address]);
     }
 
@@ -476,10 +477,24 @@ class NeoRPC
      * @return void
      */
     public function getBalance($address="") {
-	    if ($this->useMainNet)
-			return json_decode(file_get_contents("http://api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
-		else
-			return json_decode(file_get_contents("http://testnet-api.wallet.cityofzion.io/v2/address/balance/{$address}"),true);
+        $accountState = self::getAccountState($address);
+        $balances = $accountState['balances'];
+        
+        $returnArray = [
+	        "NEO"=>0,
+	        "GAS"=>0
+        ];
+        
+		if (is_array($balances)) {
+			foreach ($balances as $b) {
+				if ($b['asset'] == "0x".NeoAssets::getHash(NeoAssets::ASSET_GAS)) {
+					$returnArray['GAS'] = $b['value'];
+				}elseif ($b['asset'] == "0x".NeoAssets::getHash(NeoAssets::ASSET_NEO)) {
+					$returnArray['NEO'] = $b['value'];
+				}
+			}
+		} 
+		return $returnArray;
     }
 
 }
