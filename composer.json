@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "NeoPHP\\": "src"
         }
     }  
