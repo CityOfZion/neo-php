@@ -7,17 +7,22 @@ $rpcObject = new \NeoPHP\NeoRPC(true);
 $rpcObject->setNode("https://seed1.redpulse.com:10331");
 
 //get the NEP5 token
-#print_r("ZPT Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_ZPT,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
-#print_r("TKY Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_TKY,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
+print_r("ZPT Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,\NeoPHP\Assets\NeoAssets::ASSET_ZPT,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
+print_r(\NeoPHP\NeoRPC::getRequestCall());
+
+print_r("TKY Balance: ".\NeoPHP\NeoNEP5::getTokenBalance($rpcObject,NeoPHP\NeoAssets::ASSET_TKY,"AKDVzYGLczmykdtRaejgvWeZrvdkVEvQ1X")."\n");
+print_r(\NeoPHP\NeoRPC::getRequestCall());
 
 //set test address
 $testAddress = "AQgvqUqGqoswu8bjArbpQSU2yCeTb1ifDT"; # Bittrex cold wallet
 
-//get peers
-print_r($rpcObject->getPeers());
 
 //Get balance
+//Query the account asset information, according to the account address.
 print_r($rpcObject->getBalance($testAddress));
+
+//get peers
+print_r($rpcObject->getPeers());
 
 
 //Query the account asset information, according to the account address.

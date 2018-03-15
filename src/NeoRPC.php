@@ -39,15 +39,9 @@ class NeoRPC
      */
     var $useMainNet;
 
-
-	/**
-	 * rpcOutput
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private static $rpcOutput;
 	
+	private static $requestCall;
+	private static $rawResponse;
     /**
      * __construct function.
      *
@@ -97,6 +91,7 @@ class NeoRPC
      * @access public
      * @return void
      */
+
 
     public function setNode($node)
     {
@@ -159,6 +154,18 @@ class NeoRPC
             }
         }
         return $fastest_node;
+    }
+    
+    
+    /**
+     * setShowRequest function.
+     * 
+     * @access public
+     * @param bool $showRequest (default: false)
+     * @return void
+     */
+    public function setShowRequest($showRequest=false) {
+		$this->showRequest = $showRequest;
     }
 
     /**
@@ -440,7 +447,7 @@ class NeoRPC
 		//set agent
 		$r->setAgent('Neo-PHP ' . NeoPHP::NEO_PHP_VERSION);
 		//data array
-		$data_array = json_encode([
+		self::$requestCall = json_encode([
 		    "jsonrpc" => "2.0",
 		    "method" => $method,
 		    "params" => $params,
@@ -450,11 +457,15 @@ class NeoRPC
 		//set header
 		$r->setHeaders(array(
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_array)
+            'Content-Length: ' . strlen(self::$requestCall)
 		));
 		
+		
 		//printing			
-		if ($result = $r->post($node,$data_array)) {
+		if ($result = $r->post($node,self::$requestCall)) {
+			
+			self::$rawResponse = $result;
+			
 	        if (isset($result['error'])) {
 	            $error = $json_return['error']['message'];
 	            throw new \Exception("RPC Error message: " . $error);
@@ -463,7 +474,14 @@ class NeoRPC
 		} else {
             throw new \Exception("cURL Error: " . $request->getErrorMessage());
 		}
+    }
+    
+    public static function getRequestCall() {
+	    return self::$requestCall;
+    }
 
+    public static function getRawResponse() {
+	    return self::$rawResponse;
     }
     
     

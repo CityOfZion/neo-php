@@ -1,5 +1,7 @@
 <?php
 namespace NeoPHP;
+
+use NeoPHP\Assets\NeoAssets;
 /**
  * Class NeoRPC
  *
