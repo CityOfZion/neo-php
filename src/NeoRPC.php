@@ -467,12 +467,12 @@ class NeoRPC
 			self::$rawResponse = $result;
 			
 	        if (isset($result['error'])) {
-	            $error = $json_return['error']['message'];
+	            $error = $result['error']['message'];
 	            throw new \Exception("RPC Error message: " . $error);
 	        }
 	        return $result['result'];	        
 		} else {
-            throw new \Exception("cURL Error: " . $request->getErrorMessage());
+            throw new \Exception("cURL Error: " . $r->getErrorMessage());
 		}
     }
     
