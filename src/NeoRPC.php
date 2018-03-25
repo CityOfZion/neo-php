@@ -128,9 +128,8 @@ class NeoRPC
      * getFastestNode function.
      *
      * @access public
-     * @return void
+     * @return string
      */
-
     public function getFastestNode()
     {
         $connection_time = 100;
@@ -148,7 +147,11 @@ class NeoRPC
 
         foreach ($connections as $connection) {
             $node = curl_getinfo($connection);
-            if ($connection_time > $node['total_time']) {
+
+            $isValidResponse = $node['http_code'] === 200;
+            $isLowerLatency = $connection_time > $node['total_time'];
+
+            if ($isValidResponse && $isLowerLatency) {
                 $node['total_time'] = $connection_time;
                 $fastest_node = $node['url'];
             }
