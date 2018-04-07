@@ -15,7 +15,8 @@ class StringTools
     public static function string2hex($string)
     {
         $hex='';
-        for ($i=0; $i < strlen($string); $i++) {
+        $length = strlen($string);
+        for ($i=0; $i < $length; $i++) {
             $hex .= dechex(ord($string[$i]));
         }
         return $hex;
