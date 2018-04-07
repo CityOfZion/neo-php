@@ -136,7 +136,7 @@ class NeoRPC
      */
     public function getFastestNode()
     {
-        $connection_time = 100;
+        $connection_time = PHP_INT_MAX;
         $fastest_node = false;
         $mh = curl_multi_init();
         foreach ($this->nodes as $i => $url) {
