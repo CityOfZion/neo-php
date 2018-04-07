@@ -18,21 +18,23 @@ class Base58
 
     public static function checkEncode($string, $prefix = 128, $compressed = true)
     {
-
         $string = hex2bin($string);
 
-        if ($prefix)
+        if ($prefix) {
             $string = chr($prefix) . $string;
+        }
 
-        if ($compressed)
+        if ($compressed) {
             $string .= chr(0x01);
+        }
 
         $string = $string . substr(Hash::SHA256(Hash::SHA256($string)), 0, 4);
 
         $base58 = self::encode(BCMathUtils::bin2bc($string));
         for ($i = 0; $i < strlen($string); $i++) {
-            if ($string[$i] != "\x00")
+            if ($string[$i] != "\x00") {
                 break;
+            }
 
             $base58 = '1' . $base58;
         }
@@ -56,16 +58,19 @@ class Base58
         $string = bin2hex(BCMathUtils::bc2bin(self::decode($string)));
 
         //if trailing bytes: Network type
-        if ($removeLeadingBytes)
+        if ($removeLeadingBytes) {
             $string = substr($string, $removeLeadingBytes * 2);
+        }
 
         //if trailing bytes: Checksum
-        if ($removeTrailingBytes)
+        if ($removeTrailingBytes) {
             $string = substr($string, 0, -($removeTrailingBytes * 2));
+        }
 
         //if trailing bytes: compressed byte
-        if ($removeCompression)
+        if ($removeCompression) {
             $string = substr($string, 0, -2);
+        }
 
         //return string
         return $string;
@@ -98,5 +103,4 @@ class Base58
     {
         return BCMathUtils::base2dec($addr, $length, '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
     }
-
-}	
+}

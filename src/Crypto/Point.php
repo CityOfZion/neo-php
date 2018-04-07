@@ -35,18 +35,22 @@ class Point
     public static function cmp($p1, $p2)
     {
         if (extension_loaded('gmp') && USE_EXT == 'GMP') {
-
             if (!($p1 instanceof Point)) {
-
-                if (($p2 instanceof Point))
+                if (($p2 instanceof Point)) {
                     return 1;
+                }
 
-                if (!($p2 instanceof Point))
+                if (!($p2 instanceof Point)) {
                     return 0;
+                }
             }
             if (!($p2 instanceof Point)) {
-                if (($p1 instanceof Point)) return 1;
-                if (!($p1 instanceof Point)) return 0;
+                if (($p1 instanceof Point)) {
+                    return 1;
+                }
+                if (!($p1 instanceof Point)) {
+                    return 0;
+                }
             }
             if (gmp_cmp($p1->x, $p2->x) == 0 && gmp_cmp($p1->y, $p2->y) == 0 && CurveFp::cmp($p1->curve, $p2->curve)) {
                 return 0;
@@ -54,14 +58,21 @@ class Point
                 return 1;
             }
         } elseif (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
-
             if (!($p1 instanceof Point)) {
-                if (($p2 instanceof Point)) return 1;
-                if (!($p2 instanceof Point)) return 0;
+                if (($p2 instanceof Point)) {
+                    return 1;
+                }
+                if (!($p2 instanceof Point)) {
+                    return 0;
+                }
             }
             if (!($p2 instanceof Point)) {
-                if (($p1 instanceof Point)) return 1;
-                if (!($p1 instanceof Point)) return 0;
+                if (($p1 instanceof Point)) {
+                    return 1;
+                }
+                if (!($p1 instanceof Point)) {
+                    return 0;
+                }
             }
             if (bccomp($p1->x, $p2->x) == 0 && bccomp($p1->y, $p2->y) == 0 && CurveFp::cmp($p1->curve, $p2->curve)) {
                 return 0;
@@ -120,7 +131,9 @@ class Point
                 $step2 = bcsub($step1, $p1->y);
                 $step3 = bcmod($step2, $p);
                 $y3 = bcmod(bcsub(bcmul($l, bcsub($p1->x, $x3)), $p1->y), $p);
-                if (bccomp(0, $y3) == 1) $y3 = bcadd($p, $y3);
+                if (bccomp(0, $y3) == 1) {
+                    $y3 = bcadd($p, $y3);
+                }
                 $p3 = new Point($p1->curve, $x3, $y3);
                 return $p3;
             } else {
@@ -229,7 +242,9 @@ class Point
 
     public function __toString()
     {
-        if (!($this instanceof Point) && $this == self::$infinity) return self::$infinity;
+        if (!($this instanceof Point) && $this == self::$infinity) {
+            return self::$infinity;
+        }
         return "(" . $this->x . "," . $this->y . ")";
     }
 
@@ -244,7 +259,9 @@ class Point
             $l = gmp_strval(gmp_Utils::gmp_mod2(gmp_mul(gmp_add($three_x2, $a), $inverse), $p));
             $x3 = gmp_strval(gmp_Utils::gmp_mod2(gmp_sub(gmp_pow($l, 2), gmp_mul(2, $p1->x)), $p));
             $y3 = gmp_strval(gmp_Utils::gmp_mod2(gmp_sub(gmp_mul($l, gmp_sub($p1->x, $x3)), $p1->y), $p));
-            if (gmp_cmp(0, $y3) > 0) $y3 = gmp_strval(gmp_add($p, $y3));
+            if (gmp_cmp(0, $y3) > 0) {
+                $y3 = gmp_strval(gmp_add($p, $y3));
+            }
             $p3 = new Point($p1->curve, $x3, $y3);
             return $p3;
         } elseif (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
@@ -255,7 +272,9 @@ class Point
             $l = bcmod(bcmul(bcadd($three_x2, $a), $inverse), $p);
             $x3 = bcmod(bcsub(bcpow($l, 2), bcmul(2, $p1->x)), $p);
             $y3 = bcmod(bcsub(bcmul($l, bcsub($p1->x, $x3)), $p1->y), $p);
-            if (bccomp(0, $y3) == 1) $y3 = bcadd($p, $y3);
+            if (bccomp(0, $y3) == 1) {
+                $y3 = bcadd($p, $y3);
+            }
             $p3 = new Point($p1->curve, $x3, $y3);
             return $p3;
         } else {
@@ -286,6 +305,4 @@ class Point
     {
         return $this->order;
     }
-
-
 }

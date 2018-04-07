@@ -6,17 +6,16 @@ use NeoPHP\NeoPHP;
 
 class NEP2
 {
-
     const NEP_HEADER = '0142';
     const NEP_FLAG = 'e0';
 
-    static public function encrypt($privateKeyHex, $keyPhrase)
+    public static function encrypt($privateKeyHex, $keyPhrase)
     {
         //get the address from the private key:
         $address = KeyPair::getAddressFromPrivateKey($privateKeyHex);
         
-		//hash the address
-        $addressCheck = substr(Hash::SHA256(Hash::SHA256($address),false),0,8);
+        //hash the address
+        $addressCheck = substr(Hash::SHA256(Hash::SHA256($address), false), 0, 8);
         
         //get derived data
         $derived = bin2hex(Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
@@ -26,16 +25,16 @@ class NEP2
         $derived_second = substr($derived, 64);
         
         //we get the private key
-		$xor = self::hexXor($privateKeyHex, $derived_first);
-		
-		
+        $xor = self::hexXor($privateKeyHex, $derived_first);
+        
+        
         //encrypt the key using the second derived data
         $encrypt = openssl_encrypt(hex2bin($xor), "aes-256-ecb", hex2bin($derived_second), OPENSSL_NO_PADDING);
 
-		// compile the string
-		$compiledString = self::NEP_HEADER . self::NEP_FLAG . $addressCheck . bin2hex($encrypt);
-				
-		return Base58::checkEncode($compiledString,false,false,false);
+        // compile the string
+        $compiledString = self::NEP_HEADER . self::NEP_FLAG . $addressCheck . bin2hex($encrypt);
+                
+        return Base58::checkEncode($compiledString, false, false, false);
     }
 
 
@@ -49,7 +48,7 @@ class NEP2
      * @return void
      */
 
-    static public function decrypt($encryptedKey, $keyPhrase)
+    public static function decrypt($encryptedKey, $keyPhrase)
     {
 
         //decode the hex and get only first 78 chars
@@ -83,9 +82,10 @@ class NEP2
         $addressCheck2 = substr(Hash::SHA256(Hash::SHA256($address), false), 0, 8);
 
         //and compare it to the saved hash
-        if ($addressCheck == $addressCheck2)
+        if ($addressCheck == $addressCheck2) {
             //return private key
             return $privateKeyHex;
+        }
 
         //couldnt compare it to logic
         return false;
@@ -101,13 +101,17 @@ class NEP2
      * @return void
      */
 
-    static public function hexXor($str1, $str2)
+    public static function hexXor($str1, $str2)
     {
         //compare the lengths
-        if (strlen($str1) != strlen($str2)) return false;
+        if (strlen($str1) != strlen($str2)) {
+            return false;
+        }
 
         //check if first string is dividable by 2
-        if (strlen($str1) % 2 != 0) return false;
+        if (strlen($str1) % 2 != 0) {
+            return false;
+        }
 
         $result = "";
 
@@ -122,6 +126,3 @@ class NEP2
         return $result;
     }
 }
-
-
-

@@ -4,7 +4,6 @@ namespace NeoPHP\Crypto;
 
 class BCMathUtils
 {
-
     public static function bcrand($min, $max = false)
     {
         if (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
@@ -23,8 +22,9 @@ class BCMathUtils
         if (extension_loaded('bcmath') && USE_EXT == 'BCMATH') {
             $len = strlen($hex);
             $dec = '';
-            for ($i = 1; $i <= $len; $i++)
+            for ($i = 1; $i <= $len; $i++) {
                 $dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1])), bcpow('16', strval($len - $i))));
+            }
             return $dec;
         } else {
             throw new ErrorException("Please install BCMATH");
@@ -40,14 +40,18 @@ class BCMathUtils
                 $hex .= dechex(abs(bcmod($dec, '16')));
                 $dec = bcdiv($dec, '16', 0);
             }
-            if ($positive)
+            if ($positive) {
                 return strrev($hex);
-            for ($i = 0; $isset($hex[$i]); $i++)
+            }
+            for ($i = 0; $isset($hex[$i]); $i++) {
                 $hex[$i] = dechex(15 - hexdec($hex[$i]));
-            for ($i = 0; isset($hex[$i]) && $hex[$i] == 'f'; $i++)
+            }
+            for ($i = 0; isset($hex[$i]) && $hex[$i] == 'f'; $i++) {
                 $hex[$i] = '0';
-            if (isset($hex[$i]))
+            }
+            if (isset($hex[$i])) {
                 $hex[$i] = dechex(hexdec($hex[$i]) + 1);
+            }
             return strrev($hex);
         } else {
             throw new \ErrorException("Please install BCMATH");
@@ -141,15 +145,17 @@ class BCMathUtils
         return self::base2dec($num, 256);
     }
 
-    public static function dec2base($dec, $base, $digits = FALSE)
+    public static function dec2base($dec, $base, $digits = false)
     {
         if (extension_loaded('bcmath')) {
-            if ($base < 2 || $base > 256)
+            if ($base < 2 || $base > 256) {
                 die("Invalid Base: " . $base);
+            }
             bcscale(0);
             $value = "";
-            if (!$digits)
+            if (!$digits) {
                 $digits = self::digits($base);
+            }
             while ($dec > $base - 1) {
                 $rest = bcmod($dec, $base);
                 $dec = bcdiv($dec, $base);
@@ -162,16 +168,19 @@ class BCMathUtils
         }
     }
 
-    public static function base2dec($value, $base, $digits = FALSE)
+    public static function base2dec($value, $base, $digits = false)
     {
         if (extension_loaded('bcmath')) {
-            if ($base < 2 || $base > 256)
+            if ($base < 2 || $base > 256) {
                 die("Invalid Base: " . $base);
+            }
             bcscale(0);
-            if ($base < 37)
+            if ($base < 37) {
                 $value = strtolower($value);
-            if (!$digits)
+            }
+            if (!$digits) {
                 $digits = self::digits($base);
+            }
             $size = strlen($value);
             $dec = "0";
             for ($loop = 0; $loop < $size; $loop++) {

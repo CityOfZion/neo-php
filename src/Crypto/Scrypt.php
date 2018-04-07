@@ -46,7 +46,7 @@ abstract class Scrypt
         echo "loopie {$p}\n";
         $s = '';
         for ($i = 0; $i < $p; $i++) {
-	        echo "{$i}\n";
+            echo "{$i}\n";
             $s .= self::scryptROMix(substr($b, $i * 128 * $r, 128 * $r), $n, $r);
         }
 
@@ -54,7 +54,7 @@ abstract class Scrypt
         return Pbkdf2::calc('sha256', $password, $s, 1, $length);
     }
 
-   /**
+    /**
 * scryptROMix
 *
 * @param string $b
@@ -121,7 +121,7 @@ abstract class Scrypt
     {
         $b32 = array();
         for ($i = 0; $i < 16; $i++) {
-           list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
+            list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
         }
 
         $x = $b32;
@@ -312,7 +312,7 @@ abstract class Scrypt
         if (PHP_INT_SIZE === 8) {
             $v = 'V';
         }
-        list(,$n) = unpack($v, substr($b, -64));
+        list(, $n) = unpack($v, substr($b, -64));
         return $n;
     }
 
@@ -428,7 +428,6 @@ class Hmac
 */
     public static function compute($key, $hash, $data, $output = self::OUTPUT_STRING)
     {
-
         if (empty($key)) {
             throw new Exception\InvalidArgumentException('Provided key is null or empty');
         }
@@ -492,38 +491,36 @@ class Hmac
         static::$lastAlgorithmSupported = null;
     }
 }
-	function swapEndian($input){
-		$output = "";
-		for($i=0;$i< strlen($input);$i+=2){
-			$output .= substr($input, -($i+2), 2);
-			
-		
-		}
-		return $output;
-		
-		
-	}
+    function swapEndian($input)
+    {
+        $output = "";
+        for ($i=0;$i< strlen($input);$i+=2) {
+            $output .= substr($input, -($i+2), 2);
+        }
+        return $output;
+    }
 
 
 /*for($i=0;$i < 200;$i++){
-	$value = Scrypt::calc($i, $i, 1024, 1, 1, 32);
-	echo "scrypt ".$i." hash:".  bin2hex($value)."<br/>";
+    $value = Scrypt::calc($i, $i, 1024, 1, 1, 32);
+    echo "scrypt ".$i." hash:".  bin2hex($value)."<br/>";
 }*/
 /*
 $i = pack("H*", "01000000f615f7ce3b4fc6b8f61e8f89aedb1d0852507650533a9e3b10b9bbcc30639f279fcaa86746e1ef52d3edb3c4ad8259920d509bd073605c9bf1d59983752a6b06b817bb4ea78e011d012d59d4");
 
 $value = Scrypt::calc($i, $i, 1024, 1, 1, 32);
-	echo "scrypt ".$i." hash:".   bin2hex($value)."<br/>";
-	print_r( swapEndian(bin2hex($value)));
-	*/
-	
+    echo "scrypt ".$i." hash:".   bin2hex($value)."<br/>";
+    print_r( swapEndian(bin2hex($value)));
+    */
+    
 
 // Function used for pushpoold solution checks
-function word_reverse($str) {
-  $ret = ''; 
-  while (strlen($str) > 0) {
-    $ret .= substr($str, -8, 8); 
-    $str = substr($str, 0, -8);
-  }
-  return $ret;
+function word_reverse($str)
+{
+    $ret = '';
+    while (strlen($str) > 0) {
+        $ret .= substr($str, -8, 8);
+        $str = substr($str, 0, -8);
+    }
+    return $ret;
 }

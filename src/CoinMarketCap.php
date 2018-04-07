@@ -11,118 +11,120 @@ use NeoPHP\Assets\NeoAssets;
  */
 class CoinMarketCap
 {
-	
-	const DEFAULT_CURRENCY = "USD";
+    const DEFAULT_CURRENCY = "USD";
 
-	/**
-	 * arrAvailableCurrencies
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $arrAvailableCurrencies = array(
-		"AUD", "BRL", "CAD", "CHF", "CLP", 
-		"CNY", "CZK", "DKK", "EUR", "GBP", 
-		"HKD", "HUF", "IDR", "ILS", "INR", 
-		"JPY", "KRW", "MXN", "MYR", "NOK", 
-		"NZD", "PHP", "PKR", "PLN", "RUB", 
-		"SEK", "SGD", "THB", "TRY", "TWD", 
-		"ZAR"
-	);
-	
-	
-	/**
-	 * currency
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $currency;
-	
-	
-	/**
-	 * endPint
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $endPint;
+    /**
+     * arrAvailableCurrencies
+     *
+     * @var mixed
+     * @access private
+     */
+    private $arrAvailableCurrencies = array(
+        "AUD", "BRL", "CAD", "CHF", "CLP",
+        "CNY", "CZK", "DKK", "EUR", "GBP",
+        "HKD", "HUF", "IDR", "ILS", "INR",
+        "JPY", "KRW", "MXN", "MYR", "NOK",
+        "NZD", "PHP", "PKR", "PLN", "RUB",
+        "SEK", "SGD", "THB", "TRY", "TWD",
+        "ZAR"
+    );
+    
+    
+    /**
+     * currency
+     *
+     * @var mixed
+     * @access private
+     */
+    private $currency;
+    
+    
+    /**
+     * endPint
+     *
+     * @var mixed
+     * @access private
+     */
+    private $endPint;
 
-	/**
-	 * __construct function.
-	 * 
-	 * @access public
-	 * @param mixed $defaultCurrency
-	 * @return void
-	 */
-	public function __construct(){
-		$this->setCurrency(self::DEFAULT_CURRENCY);
-		$this->endPoint = "https://api.coinmarketcap.com/v1/";
-		
-	}
-	
-	/**
-	 * setCurrency function.
-	 * 
-	 * @access public
-	 * @param mixed $currency
-	 * @return void
-	 */
-	public function setCurrency($currency) {
-		if (in_array($currency, $this->arrAvailableCurrencies));
-			return $this->currency = $currency;
-		return false;
-	}
-	
-	/**
-	 * getTicker function.
-	 * 
-	 * @access public
-	 * @param int $start (default: 0)
-	 * @param int $limit (default: 100)
-	 * @return void
-	 */
-	public function getTicker($start=0,$limit=100) {
-		//create new network request
-		$r = new NetworkRequest();
-		return $r->get($this->endPoint."ticker/",[
-			"convert"=>$this->currency,
-			"start"=>$start,
-			"limit"=>$limit
-		]);
-	}
-	
-	/**
-	 * getTickerForAsset function.
-	 * 
-	 * @access public
-	 * @param mixed $asset
-	 * @return void
-	 */
-	public function getTickerForAsset($asset) {
-		
-		if (!$assetCmcId = NeoAssets::getCoinMarketCapId($asset)) {
-			return [];
-		}
+    /**
+     * __construct function.
+     *
+     * @access public
+     * @param mixed $defaultCurrency
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->setCurrency(self::DEFAULT_CURRENCY);
+        $this->endPoint = "https://api.coinmarketcap.com/v1/";
+    }
+    
+    /**
+     * setCurrency function.
+     *
+     * @access public
+     * @param mixed $currency
+     * @return void
+     */
+    public function setCurrency($currency)
+    {
+        if (in_array($currency, $this->arrAvailableCurrencies));
+        return $this->currency = $currency;
+        return false;
+    }
+    
+    /**
+     * getTicker function.
+     *
+     * @access public
+     * @param int $start (default: 0)
+     * @param int $limit (default: 100)
+     * @return void
+     */
+    public function getTicker($start=0, $limit=100)
+    {
+        //create new network request
+        $r = new NetworkRequest();
+        return $r->get($this->endPoint."ticker/", [
+            "convert"=>$this->currency,
+            "start"=>$start,
+            "limit"=>$limit
+        ]);
+    }
+    
+    /**
+     * getTickerForAsset function.
+     *
+     * @access public
+     * @param mixed $asset
+     * @return void
+     */
+    public function getTickerForAsset($asset)
+    {
+        if (!$assetCmcId = NeoAssets::getCoinMarketCapId($asset)) {
+            return [];
+        }
 
-		//create new network request
-		$r = new NetworkRequest();
-		return $r->get($this->endPoint."ticker/{$assetCmcId}/",[
-			"convert"=>$this->currency,
-		])[0];
-	}
-	
-	/**
-	 * getGlobalData function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function getGlobalData() {
-		//create new network request
-		$r = new NetworkRequest();
-		return $r->get($this->endPoint."global/",[
-			"convert"=>$this->currency,
-		]);		
-	}
+        //create new network request
+        $r = new NetworkRequest();
+        return $r->get($this->endPoint."ticker/{$assetCmcId}/", [
+            "convert"=>$this->currency,
+        ])[0];
+    }
+    
+    /**
+     * getGlobalData function.
+     *
+     * @access public
+     * @return void
+     */
+    public function getGlobalData()
+    {
+        //create new network request
+        $r = new NetworkRequest();
+        return $r->get($this->endPoint."global/", [
+            "convert"=>$this->currency,
+        ]);
+    }
 }

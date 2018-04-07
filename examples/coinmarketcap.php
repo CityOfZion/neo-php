@@ -34,5 +34,3 @@ print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_ZPT));
 
 //get global data
 print_r($cmcObject->getGlobalData());
-
-
