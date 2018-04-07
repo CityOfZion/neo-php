@@ -61,8 +61,11 @@ class CoinMarketCap
      */
     public function setCurrency($currency)
     {
-        if (in_array($currency, $this->arrAvailableCurrencies));
-        return $this->currency = $currency;
+        if (in_array($currency, $this->arrAvailableCurrencies)) {
+            $this->currency = $currency;
+            return $this->currency;
+        }
+
         return false;
     }
     

@@ -22,7 +22,8 @@ class NeoWallet
     {
         if ($addressInput != "" && $keyPhrase != "") {
             if (!$this->privateKeyHex = Crypto\NEP2::decrypt($addressInput, $keyPhrase)) {
-                throw new \Exception(sprintf("Can't decrypt key: %s", $addressInput));
+                $error = sprintf("Can't decrypt key: %s", $addressInput);
+                throw new \Exception($error);
             }
 
             $this->isEncrypted = true;

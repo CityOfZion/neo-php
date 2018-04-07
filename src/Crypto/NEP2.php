@@ -18,7 +18,8 @@ class NEP2
         $addressCheck = substr(Hash::SHA256(Hash::SHA256($address), false), 0, 8);
         
         //get derived data
-        $derived = bin2hex(Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
+        $bin = Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64);
+        $derived = bin2hex($bin);
         
         //split the derived data
         $derived_first = substr($derived, 0, 64);
@@ -50,9 +51,9 @@ class NEP2
 
     public static function decrypt($encryptedKey, $keyPhrase)
     {
-
         //decode the hex and get only first 78 chars
-        $decodedHex = substr(bin2hex(BCMathUtils::bc2bin(Base58::decode($encryptedKey))), 0, 78);
+        $bin = BCMathUtils::bc2bin(Base58::decode($encryptedKey));
+        $decodedHex = substr(bin2hex($bin), 0, 78);
 
         //get address checksum
         $addressCheck = substr($decodedHex, 6, 8);
@@ -61,14 +62,19 @@ class NEP2
         $encryptedKey = substr($decodedHex, -64);
 
         //derived passphrase
-        $derived = bin2hex(Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64));
+        $bin = Scrypt::calc($keyPhrase, hex2bin($addressCheck), 16384, 8, 8, 64);
+        $derived = bin2hex($bin);
 
         //split the derived data
         $derived_first = substr($derived, 0, 64);
         $derived_second = substr($derived, 64);
 
         //decrypt the key
-        $decrypted = openssl_decrypt(hex2bin($encryptedKey), "aes-256-ecb", hex2bin($derived_second), OPENSSL_NO_PADDING);
+        $hex = hex2bin($encryptedKey);
+        $method = "aes-256-ecb";
+        $derivedSecondHex = hex2bin($derived_second);
+        $options = OPENSSL_NO_PADDING;
+        $decrypted = openssl_decrypt($hex, $method, $derivedSecondHex, $options);
 
         //we get the private key
         if (!$privateKeyHex = self::hexXor(bin2hex($decrypted), $derived_first)) {
@@ -115,7 +121,8 @@ class NEP2
 
         $result = "";
 
-        for ($i = 0; $i < strlen($str1); $i += 2) {
+        $length = strlen($str1);
+        for ($i = 0; $i < $length; $i += 2) {
             $n1 = intval(substr($str1, $i, 2), 16);
             $n2 = intval(substr($str2, $i, 2), 16);
             //we need to pad this thing over here, PHP's dechex will not pad

@@ -666,7 +666,7 @@ class NumberTheory
                 $m=bcdiv($m, 2);
             }
             for ($i=0;$i<$t;$i++) {
-                $a=bcmath_Utils::bcrand(1, bcsub($n, 1));
+                $a=BCMathUtils::bcrand(1, bcsub($n, 1));
                 $b0=self::modular_exp($a, $m, $n);
                 if ($b0!=1&&$b0!=bcsub($n, 1)) {
                     $j=1;
@@ -698,7 +698,7 @@ class NumberTheory
             if (bccomp($starting_value, 2)==-1) {
                 return 2;
             }
-            $result=bcmath_Utils::bcor(bcadd($starting_value, 1), 1);
+            $result=BCMathUtils::bcor(bcadd($starting_value, 1), 1);
             while (!self::is_prime($result)) {
                 $result=bcadd($result, 2);
             }

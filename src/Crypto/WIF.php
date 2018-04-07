@@ -3,9 +3,12 @@
 namespace NeoPHP\Crypto;
 
 
-//taken from: https://en.bitcoin.it/wiki/Wallet_import_format
-
-
+/**
+ * taken from: https://en.bitcoin.it/wiki/Wallet_import_format
+ *
+ * Class WIF
+ * @package NeoPHP\Crypto
+ */
 class WIF
 {
 
@@ -47,7 +50,8 @@ class WIF
      */
     public static function getScriptHashFromAddress($address)
     {
-        return \NeoPHP\Tools\StringTools::reverseHex(Base58::checkDecode($address, 1, 3));
+        $hexString = Base58::checkDecode($address, 1, 3);
+        return \NeoPHP\Tools\StringTools::reverseHex($hexString);
     }
 
     /**
@@ -67,7 +71,10 @@ class WIF
         //filter out last 4 bytes
         $uncompressedWifNoChecksum = substr($uncompressedWif, 0, -4);
 
-        //check if the last 4 bytes wwith the first four of the uncompressed wif, with SHA256 twice
-        return (substr($uncompressedWif, -4) == substr(Hash::SHA256(Hash::SHA256($uncompressedWifNoChecksum)), 0, 4));
+        // check if the last 4 bytes
+        // with the first four of the uncompressed wif,
+        // with SHA256 twice
+        $hashed = Hash::SHA256(Hash::SHA256($uncompressedWifNoChecksum));
+        return (substr($uncompressedWif, -4) == substr($hashed, 0, 4));
     }
 }

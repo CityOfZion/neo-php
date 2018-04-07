@@ -14,18 +14,18 @@ class NeoNEP5
       * getNEP5Balance function.
       *
       * @access public
+      * @param mixed $rpcObject
       * @param mixed $asset
       * @param mixed $address
-      * @return void
+      * @return float
       */
     public static function getTokenBalance($rpcObject, $asset, $address)
     {
-
         //get scripthash from address
-        $addressScriptHash = \NeoPHP\Crypto\WIF::getScriptHashFromAddress($address);
+        $hash = \NeoPHP\Crypto\WIF::getScriptHashFromAddress($address);
 
         //get reverse hex
-        $addressScriptHashReverse = \NeoPHP\Tools\StringTools::reverseHex($addressScriptHash);
+        $addressScriptHashReverse = \NeoPHP\Tools\StringTools::reverseHex($hash);
         
         //script hash
         $script_hash = NeoAssets::getHash($asset);
@@ -43,10 +43,12 @@ class NeoNEP5
         );
         
         //perform the RPC request
-        $request = $rpcObject->invokeFunction($script_hash, ["balanceOf",$p->getParameters()]);
+        $params = $p->getParameters();
+        $request = $rpcObject->invokeFunction($script_hash, ["balanceOf", $params]);
         
         //reverse the hex decimal
-        $hexDecimal = \NeoPHP\Tools\StringTools::reverseHex($request['stack'][0]['value']);
+        $value = $request['stack'][0]['value'];
+        $hexDecimal = \NeoPHP\Tools\StringTools::reverseHex($value);
         
         //intval (#, 16) where 16 is the hex deicmal
         return intval($hexDecimal, 16) / pow(10, $decimals);
