@@ -2,40 +2,40 @@
 namespace NeoPHP\ConsoleTools;
 
 /**
-     * Color class.
+ * Tools class.
+ */
+class Tools
+{
+
+    /**
+     * isUnixLikeOS function.
+     *
+     * @access public
+     * @static
+     * @return bool
      */
-    class Tools
+    public static function isUnixLikeOS()
     {
-
-        /**
-         * isUnixLikeOS function.
-         *
-         * @access public
-         * @static
-         * @return bool
-         */
-        public static function isUnixLikeOS()
-        {
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        /**
-         * clearScreen function.
-         *
-         * @access public
-         * @static
-         * @return void
-         */
-        public static function clearScreen()
-        {
-            if (self::isUnixLikeOS()) {
-                system('clear');
-            } else {
-                system('cls');
-            }
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return false;
+        } else {
+            return true;
         }
     }
+
+    /**
+     * clearScreen function.
+     *
+     * @access public
+     * @static
+     * @return void
+     */
+    public static function clearScreen()
+    {
+        if (self::isUnixLikeOS()) {
+            system('clear');
+        } else {
+            system('cls');
+        }
+    }
+}

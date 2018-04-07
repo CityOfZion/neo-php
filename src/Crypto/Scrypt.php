@@ -335,7 +335,3 @@ abstract class Scrypt
         return $result;
     }
 }
-
-
-
-

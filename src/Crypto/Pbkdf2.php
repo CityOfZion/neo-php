@@ -3,7 +3,6 @@
 
 namespace NeoPHP\Crypto;
 
-
 /**
  * PKCS #5 v2.0 standard RFC 2898
  */

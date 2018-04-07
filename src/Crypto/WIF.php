@@ -2,7 +2,6 @@
 
 namespace NeoPHP\Crypto;
 
-
 /**
  * taken from: https://en.bitcoin.it/wiki/Wallet_import_format
  *
