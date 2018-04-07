@@ -2,6 +2,8 @@
 //to  be tidied
 namespace NeoPHP\Crypto;
 
+use \ErrorException;
+
 class NumberTheory
 {
     public static function modular_exp($base, $exponent, $modulus)
