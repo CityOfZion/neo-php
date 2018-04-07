@@ -37,15 +37,7 @@ class CoinMarketCap
      * @access private
      */
     private $currency;
-    
-    
-    /**
-     * endPint
-     *
-     * @var mixed
-     * @access private
-     */
-    private $endPint;
+
 
     /**
      * __construct function.
