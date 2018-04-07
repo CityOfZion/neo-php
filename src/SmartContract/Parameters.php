@@ -8,9 +8,7 @@ class Parameters
           PARAMETER_BOOLEAN	  = 2,
           PARAMETER_HASH160	  = 3,
           PARAMETER_INTEGER	  = 4;
-    
 
-        
     /**
      * __construct function.
      *
@@ -20,8 +18,6 @@ class Parameters
     public function __construct()
     {
         $this->parameters = [];
-        
-        return $this;
     }
     
     
@@ -29,7 +25,7 @@ class Parameters
      * getParameters function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
     public function getParameters()
     {
@@ -43,7 +39,7 @@ class Parameters
      * @access public
      * @param mixed $type
      * @param mixed $value
-     * @return void
+     * @return Parameters
      */
     public function addParameter($type, $value)
     {

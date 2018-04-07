@@ -15,7 +15,7 @@ class NeoRPC
     /**
      * nodes
      *
-     * @var mixed
+     * @var array|null
      * @access public
      */
 
@@ -24,7 +24,7 @@ class NeoRPC
     /**
      * active_node
      *
-     * @var mixed
+     * @var string|null
      * @access public
      */
 
@@ -34,7 +34,7 @@ class NeoRPC
     /**
      * useMainNet
      *
-     * @var mixed
+     * @var boolean|null
      * @access public
      */
     public $useMainNet;
@@ -42,13 +42,14 @@ class NeoRPC
     
     private static $requestCall;
     private static $rawResponse;
+
+
     /**
      * __construct function.
      *
      * @access public
      * @return void
      */
-
     public function __construct($useMainNet = true)
     {
         $this->useMainNet = $useMainNet;
@@ -86,14 +87,15 @@ class NeoRPC
     @@ Var getters and setters functions
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     */
+
+
     /**
      * setNode function.
      *
      * @access public
+     * @param string $node
      * @return void
      */
-
-
     public function setNode($node)
     {
         if (filter_var($node, FILTER_VALIDATE_URL) === false) {
@@ -106,7 +108,7 @@ class NeoRPC
      * getNode function.
      *
      * @access public
-     * @return void
+     * @return string|null
      */
 
     public function getNode()
@@ -118,7 +120,7 @@ class NeoRPC
      * listNodes function.
      *
      * @access public
-     * @return void
+     * @return array
      */
 
     public function listNodes()
@@ -179,7 +181,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $address
-     * @return void
+     * @return mixed
      */
 
     public function getAccountState($address)
@@ -196,7 +198,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $asset : Asset ID
-     * @return void
+     * @return string
      */
 
     public function getAssetState($asset)
@@ -214,7 +216,7 @@ class NeoRPC
      * getBestBlockHash function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
 
     public function getBestBlockHash()
@@ -228,7 +230,7 @@ class NeoRPC
      * @access public
      * @param bool $block_identifier (default: false)
      * @param bool $verbose (default: true) Optional, the default value of verbose is 0. When verbose is 0, the serialized information of the block is returned, represented by a hexadecimal string. If you need to get detailed information, you will need to use the SDK for deserialization. When verbose is 1, detailed information of the corresponding block in Json format string, is returned
-     * @return void
+     * @return mixed
      */
 
     public function getBlock($block_identifier = false, $verbose = true)
@@ -243,7 +245,7 @@ class NeoRPC
      * getBlockCount function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
 
     public function getBlockCount()
@@ -256,7 +258,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $block_identifier
-     * @return void
+     * @return mixed
      */
 
     public function getBlockSysFee($block_identifier)
@@ -272,7 +274,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $block_index
-     * @return void
+     * @return mixed
      */
 
     public function getBlockHash($block_index)
@@ -287,7 +289,7 @@ class NeoRPC
      * getConnectionCount function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
 
     public function getConnectionCount()
@@ -300,7 +302,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $script_hash
-     * @return void
+     * @return mixed
      */
 
     public function getContractState($script_hash)
@@ -315,7 +317,7 @@ class NeoRPC
      * getRawMemPool function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
 
     public function getRawMemPool()
@@ -329,7 +331,7 @@ class NeoRPC
      * @access public
      * @param mixed $transaction_id
      * @param bool $verbose (default: true)
-     * @return void
+     * @return mixed
      */
 
     public function getRawTransaction($transaction_id, $verbose = true)
@@ -345,7 +347,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $script_hash
-     * @return void
+     * @return mixed
      */
 
     public function getStorage($script_hash, $key)
@@ -367,7 +369,7 @@ class NeoRPC
      * @access public
      * @param bool $transaction_id (default: false)
      * @param int $index (default: 0)
-     * @return void
+     * @return mixed
      */
 
     public function getTxOut($transaction_id = false, $index = 0)
@@ -384,7 +386,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $hex
-     * @return void
+     * @return mixed
      */
 
     public function sendRawTransaction($hex)
@@ -400,7 +402,7 @@ class NeoRPC
      *
      * @access public
      * @param mixed $address
-     * @return void
+     * @return mixed
      */
 
     public function validateAddress($address)
@@ -415,7 +417,7 @@ class NeoRPC
      * getPeers function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
 
     public function getPeers()
@@ -431,7 +433,7 @@ class NeoRPC
      * @access public
      * @param mixed $script_hash
      * @param mixed $parameters
-     * @return void
+     * @return mixed
      */
     public function invokeFunction($script_hash, $parameters)
     {
@@ -446,7 +448,8 @@ class NeoRPC
      * @param bool $node (default: false)
      * @param bool $method (default: false)
      * @param mixed $params (default: [])
-     * @return void
+     * @throws \Exception
+     * @return mixed
      */
     public static function doRPCRequest($node = false, $method = false, $params = [])
     {
@@ -512,7 +515,7 @@ class NeoRPC
      * @static
      * @param string $address (default: "")
      * @param mixed $isTestnet
-     * @return void
+     * @return mixed
      */
     public function getBalance($address="")
     {

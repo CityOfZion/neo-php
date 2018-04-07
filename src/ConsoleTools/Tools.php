@@ -12,7 +12,7 @@ namespace NeoPHP\ConsoleTools;
          *
          * @access public
          * @static
-         * @return void
+         * @return bool
          */
         public static function isUnixLikeOS()
         {

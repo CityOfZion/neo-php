@@ -2,6 +2,7 @@
 
 namespace NeoPHP\Crypto;
 
+use \ErrorException;
 use NeoPHP\Crypto\BCMathUtils;
 
 class Point

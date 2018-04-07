@@ -145,7 +145,7 @@ class NeoAssets
      * @access public
      * @static
      * @param mixed $asset
-     * @return void
+     * @return string
      */
     public static function getName($asset)
     {
@@ -159,7 +159,7 @@ class NeoAssets
      * @access public
      * @static
      * @param mixed $asset
-     * @return void
+     * @return string
      */
     public static function getHash($asset)
     {
@@ -173,7 +173,7 @@ class NeoAssets
      * @access public
      * @static
      * @param mixed $asset
-     * @return void
+     * @return mixed
      */
     public static function isSystemToken($asset)
     {
@@ -187,7 +187,7 @@ class NeoAssets
      * @access public
      * @static
      * @param mixed $asset
-     * @return void
+     * @return mixed
      */
     public static function getDecimals($asset)
     {
@@ -201,7 +201,7 @@ class NeoAssets
      * @access public
      * @static
      * @param mixed $asset
-     * @return void
+     * @return mixed
      */
     public static function getCoinMarketCapId($asset)
     {

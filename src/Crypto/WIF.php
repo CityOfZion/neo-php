@@ -2,8 +2,6 @@
 
 namespace NeoPHP\Crypto;
 
-use NeoPHP\Crypto\Base58;
-use NeoPHP\Tools;
 
 //taken from: https://en.bitcoin.it/wiki/Wallet_import_format
 
@@ -17,7 +15,7 @@ class WIF
      * @access public
      * @static
      * @param mixed $privateKey
-     * @return void
+     * @return mixed
      */
 
     public static function getWifForPrivateKey($privateKey)
@@ -32,7 +30,7 @@ class WIF
      * @access public
      * @static
      * @param mixed $wif
-     * @return void
+     * @return mixed
      */
 
     public static function getPrivateKeyFromWif($wif)
@@ -45,7 +43,7 @@ class WIF
      *
      * @access public
      * @param mixed $address
-     * @return void
+     * @return mixed
      */
     public static function getScriptHashFromAddress($address)
     {
@@ -58,7 +56,7 @@ class WIF
      * @access public
      * @static
      * @param mixed $wif
-     * @return void
+     * @return string
      */
 
     public static function validateWif($wif)

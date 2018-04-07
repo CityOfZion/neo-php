@@ -45,7 +45,7 @@ class NEP2
      * @static
      * @param mixed $encryptedKey
      * @param mixed $keyPhrase
-     * @return void
+     * @return mixed
      */
 
     public static function decrypt($encryptedKey, $keyPhrase)
@@ -98,7 +98,7 @@ class NEP2
      * @static
      * @param mixed $str1
      * @param mixed $str2
-     * @return void
+     * @return mixed
      */
 
     public static function hexXor($str1, $str2)

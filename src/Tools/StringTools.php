@@ -10,7 +10,7 @@ class StringTools
      * @access public
      * @static
      * @param mixed $string
-     * @return void
+     * @return string
      */
     public static function string2hex($string)
     {
@@ -28,7 +28,7 @@ class StringTools
      * @access public
      * @static
      * @param mixed $hex
-     * @return void
+     * @return string
      */
     public static function hex2string($hex)
     {
@@ -60,7 +60,7 @@ class StringTools
      *
      * @access public
      * @static
-     * @return void
+     * @return string
      */
     public static function reverseHex($hexString)
     {

@@ -13,7 +13,7 @@ class Base58
      * @param mixed $prefix
      * @param mixed $string
      * @param bool $compressed (default: false)
-     * @return void
+     * @return string
      */
 
     public static function checkEncode($string, $prefix = 128, $compressed = true)
@@ -50,7 +50,7 @@ class Base58
      * @param mixed $string
      * @param mixed $removeLeadingBytes
      * @param int $removeTrailingBytes (default: 4)
-     * @return void
+     * @return string
      */
 
     public static function checkDecode($string, $removeLeadingBytes = 1, $removeTrailingBytes = 4, $removeCompression = true)
@@ -82,7 +82,7 @@ class Base58
      * @access public
      * @static
      * @param mixed $num
-     * @return void
+     * @return string
      */
 
     public static function encode($num, $length = 58)
@@ -96,7 +96,7 @@ class Base58
      * @access public
      * @static
      * @param mixed $addr
-     * @return void
+     * @return string
      */
 
     public static function decode($addr, $length = 58)

@@ -65,7 +65,7 @@ class CoinMarketCap
      *
      * @access public
      * @param mixed $currency
-     * @return void
+     * @return mixed
      */
     public function setCurrency($currency)
     {
@@ -80,7 +80,7 @@ class CoinMarketCap
      * @access public
      * @param int $start (default: 0)
      * @param int $limit (default: 100)
-     * @return void
+     * @return mixed
      */
     public function getTicker($start=0, $limit=100)
     {
@@ -98,7 +98,7 @@ class CoinMarketCap
      *
      * @access public
      * @param mixed $asset
-     * @return void
+     * @return mixed
      */
     public function getTickerForAsset($asset)
     {
@@ -117,7 +117,7 @@ class CoinMarketCap
      * getGlobalData function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
     public function getGlobalData()
     {

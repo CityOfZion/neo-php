@@ -11,7 +11,7 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $privateKey
-     * @return void
+     * @return string
      */
 
     public static function getPublicKeyFromPrivateKey($privateKey)
@@ -49,7 +49,7 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $publicKeyHex
-     * @return void
+     * @return string
      */
 
     public static function getAddressFromPublicKey($publicKeyHex)
@@ -87,7 +87,7 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $privateKey
-     * @return void
+     * @return string
      */
 
     public static function getAddressFromPrivateKey($privateKey)
@@ -100,7 +100,7 @@ class KeyPair
      * createPrivateKey function.
      *
      * @access private
-     * @return void
+     * @return string
      */
 
     public static function createPrivateKey()
@@ -113,7 +113,7 @@ class KeyPair
      *
      * @access public
      * @static
-     * @return void
+     * @return string
      */
     
     public static function createPrivateKeyHex()

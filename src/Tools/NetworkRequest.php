@@ -123,7 +123,7 @@ class NetworkRequest
      * @access public
      * @param mixed $url
      * @param bool $params (default: false)
-     * @return void
+     * @return mixed
      */
     public function get($url, $params = false)
     {
@@ -145,7 +145,7 @@ class NetworkRequest
      * @access public
      * @param mixed $url
      * @param bool $params (default: false)
-     * @return void
+     * @return mixed
      */
     public function post($url, $params = false)
     {
@@ -233,7 +233,7 @@ class NetworkRequest
      * exec function.
      *
      * @access public
-     * @return void
+     * @return mixed
      */
     public function exec()
     {
