@@ -1,5 +1,5 @@
 <?php
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 //Existing wallet and encrypt it with NEP2
 $wallet = new NeoPHP\NeoWallet("Kx1wAGBe7tSQHq52rLbt9rQRjofrBpCvE1rBk7JftD5Z1gu6WcXm");

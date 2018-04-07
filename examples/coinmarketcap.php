@@ -1,5 +1,5 @@
 <?php
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 //setup coinmarketcap object
 $cmcObject = new \NeoPHP\CoinMarketCap();

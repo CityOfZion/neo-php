@@ -1,5 +1,5 @@
 <?php
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 //New wallet
 $newWallet = new NeoPHP\NeoWallet();

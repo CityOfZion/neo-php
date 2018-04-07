@@ -1,7 +1,7 @@
 <?php
 chdir(__FILE__);
 
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 use NeoPHP\ConsoleTools\Interaction\Menu;
 use NeoPHP\ConsoleTools\Interaction\Prompt;

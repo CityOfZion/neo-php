@@ -1,5 +1,5 @@
 <?php
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 #test net or not
 $rpcObject = new \NeoPHP\NeoRPC(true);
