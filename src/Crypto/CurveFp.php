@@ -2,16 +2,16 @@
 namespace NeoPHP\Crypto;
 
 if (!defined("USE_EXT")) {
-	if (extension_loaded('gmp'))
-		define("USE_EXT", "GMP");
-	elseif (extension_loaded('bcmath'))
-		define("USE_EXT", "BCMATH");
+    if (extension_loaded('gmp')) {
+        define("USE_EXT", "GMP");
+    } elseif (extension_loaded('bcmath')) {
+        define("USE_EXT", "BCMATH");
+    }
 }
-	
+    
 
 class CurveFp
 {
-
     protected $a = 0;
 
     protected $b = 0;

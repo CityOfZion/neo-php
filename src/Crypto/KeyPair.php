@@ -11,18 +11,22 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $privateKey
-     * @return void
+     * @return string
      */
 
     public static function getPublicKeyFromPrivateKey($privateKey)
     {
 
         //setup curve for: secp256k1
-        $secp256k1 = new CurveFp('115792089210356248762697446949407573530086143415290314195533631308867097853951',
+        $secp256k1 = new CurveFp(
+            '115792089210356248762697446949407573530086143415290314195533631308867097853951',
             '115792089210356248762697446949407573530086143415290314195533631308867097853948',
-            '41058363725152142129326129780047268409114441015993725554835256314039467401291');
+            '41058363725152142129326129780047268409114441015993725554835256314039467401291'
+        );
             
-        $secp256k1_G = new Point($secp256k1,
+        $secp256k1_G = new Point(
+            
+            $secp256k1,
             '48439561293906451759052585252797914202762949526041747995844080717082404635286',
             '36134250956749795798585127919587881956611106672985015071877198253568414405109',
             '115792089210356248762697446949407573529996955224135760342422259061068512044369'
@@ -37,7 +41,6 @@ class KeyPair
             . str_pad(BCMathUtils::bc2bin($point->getX()), 32, "\x00", STR_PAD_LEFT);
 
         return bin2hex($pubBinStrCompressed);
-
     }
 
     /**
@@ -46,7 +49,7 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $publicKeyHex
-     * @return void
+     * @return string
      */
 
     public static function getAddressFromPublicKey($publicKeyHex)
@@ -75,7 +78,6 @@ class KeyPair
 
         //base58 wants decimal stuff, not hex
         return Base58::encode(BCMathUtils::bchexdec($stringToBeEncoded));
-
     }
 
 
@@ -85,24 +87,23 @@ class KeyPair
      * @access public
      * @static
      * @param mixed $privateKey
-     * @return void
+     * @return string
      */
 
     public static function getAddressFromPrivateKey($privateKey)
     {
         $publicKeyHex = self::getPublicKeyFromPrivateKey($privateKey);
         return self::getAddressFromPublicKey($publicKeyHex);
-
     }
 
     /**
      * createPrivateKey function.
      *
      * @access private
-     * @return void
+     * @return string
      */
 
-    static public function createPrivateKey()
+    public static function createPrivateKey()
     {
         return openssl_random_pseudo_bytes(32);
     }
@@ -112,12 +113,11 @@ class KeyPair
      *
      * @access public
      * @static
-     * @return void
+     * @return string
      */
     
-    static public function createPrivateKeyHex()
+    public static function createPrivateKeyHex()
     {
         return bin2hex(self::createPrivateKey());
     }
-
 }

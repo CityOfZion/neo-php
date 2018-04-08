@@ -1,5 +1,5 @@
 <?php
-include("../vendor/autoload.php");
+include("../../../../vendor/autoload.php");
 
 //setup coinmarketcap object
 $cmcObject = new \NeoPHP\CoinMarketCap();
@@ -34,5 +34,3 @@ print_r($cmcObject->getTickerForAsset(\NeoPHP\Assets\NeoAssets::ASSET_ZPT));
 
 //get global data
 print_r($cmcObject->getGlobalData());
-
-

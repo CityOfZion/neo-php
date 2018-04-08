@@ -46,7 +46,7 @@ abstract class Scrypt
         echo "loopie {$p}\n";
         $s = '';
         for ($i = 0; $i < $p; $i++) {
-	        echo "{$i}\n";
+            echo "{$i}\n";
             $s .= self::scryptROMix(substr($b, $i * 128 * $r, 128 * $r), $n, $r);
         }
 
@@ -54,15 +54,15 @@ abstract class Scrypt
         return Pbkdf2::calc('sha256', $password, $s, 1, $length);
     }
 
-   /**
-* scryptROMix
-*
-* @param string $b
-* @param integer $n
-* @param integer $r
-* @return string
-* @see https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
-*/
+    /**
+    * scryptROMix
+    *
+    * @param string $b
+    * @param integer $n
+    * @param integer $r
+    * @return string
+    * @see https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
+    */
     protected static function scryptROMix($b, $n, $r)
     {
         $x = $b;
@@ -121,7 +121,7 @@ abstract class Scrypt
     {
         $b32 = array();
         for ($i = 0; $i < 16; $i++) {
-           list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
+            list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
         }
 
         $x = $b32;
@@ -312,7 +312,7 @@ abstract class Scrypt
         if (PHP_INT_SIZE === 8) {
             $v = 'V';
         }
-        list(,$n) = unpack($v, substr($b, -64));
+        list(, $n) = unpack($v, substr($b, -64));
         return $n;
     }
 
@@ -334,196 +334,4 @@ abstract class Scrypt
         }
         return $result;
     }
-}
-
-
-
-/**
-* Zend Framework (http://framework.zend.com/)
-*
-* @link http://github.com/zendframework/zf2 for the canonical source repository
-* @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
-* @license http://framework.zend.com/license/new-bsd New BSD License
-*/
-
-
-
-
-
-/**
-* PKCS #5 v2.0 standard RFC 2898
-*/
-class Pbkdf2
-{
-    /**
-* Generate the new key
-*
-* @param string $hash The hash algorithm to be used by HMAC
-* @param string $password The source password/key
-* @param string $salt
-* @param integer $iterations The number of iterations
-* @param integer $length The output size
-* @throws Exception\InvalidArgumentException
-* @return string
-*/
-    public static function calc($hash, $password, $salt, $iterations, $length)
-    {
-        if (!Hmac::isSupported($hash)) {
-            throw new Exception\InvalidArgumentException("The hash algorithm $hash is not supported by " . __CLASS__);
-        }
-
-        $num = ceil($length / Hmac::getOutputSize($hash, Hmac::OUTPUT_BINARY));
-        $result = '';
-        for ($block = 1; $block <= $num; $block++) {
-            $hmac = hash_hmac($hash, $salt . pack('N', $block), $password, Hmac::OUTPUT_BINARY);
-            $mix = $hmac;
-            for ($i = 1; $i < $iterations; $i++) {
-                $hmac = hash_hmac($hash, $hmac, $password, Hmac::OUTPUT_BINARY);
-                $mix ^= $hmac;
-            }
-            $result .= $mix;
-        }
-        return substr($result, 0, $length);
-    }
-}
-
-
-
-/**
-* Zend Framework (http://framework.zend.com/)
-*
-* @link http://github.com/zendframework/zf2 for the canonical source repository
-* @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
-* @license http://framework.zend.com/license/new-bsd New BSD License
-*/
-
-
-
-/**
-* PHP implementation of the RFC 2104 Hash based Message Authentication Code
-*/
-class Hmac
-{
-    const OUTPUT_STRING = false;
-    const OUTPUT_BINARY = true;
-
-    /**
-* Last algorithm supported
-*
-* @var string|null
-*/
-    protected static $lastAlgorithmSupported;
-
-    /**
-* Performs a HMAC computation given relevant details such as Key, Hashing
-* algorithm, the data to compute MAC of, and an output format of String,
-* or Binary.
-*
-* @param string $key
-* @param string $hash
-* @param string $data
-* @param bool $output
-* @throws Exception\InvalidArgumentException
-* @return string
-*/
-    public static function compute($key, $hash, $data, $output = self::OUTPUT_STRING)
-    {
-
-        if (empty($key)) {
-            throw new Exception\InvalidArgumentException('Provided key is null or empty');
-        }
-
-        if (!$hash || ($hash !== static::$lastAlgorithmSupported && !static::isSupported($hash))) {
-            throw new Exception\InvalidArgumentException(
-                "Hash algorithm is not supported on this PHP installation; provided '{$hash}'"
-            );
-        }
-
-        return hash_hmac($hash, $data, $key, $output);
-    }
-
-    /**
-* Get the output size according to the hash algorithm and the output format
-*
-* @param string $hash
-* @param bool $output
-* @return integer
-*/
-    public static function getOutputSize($hash, $output = self::OUTPUT_STRING)
-    {
-        return strlen(static::compute('key', $hash, 'data', $output));
-    }
-
-    /**
-* Get the supported algorithm
-*
-* @return array
-*/
-    public static function getSupportedAlgorithms()
-    {
-        return hash_algos();
-    }
-
-    /**
-* Is the hash algorithm supported?
-*
-* @param string $algorithm
-* @return bool
-*/
-    public static function isSupported($algorithm)
-    {
-        if ($algorithm === static::$lastAlgorithmSupported) {
-            return true;
-        }
-
-        if (in_array(strtolower($algorithm), hash_algos(), true)) {
-            static::$lastAlgorithmSupported = $algorithm;
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-* Clear the cache of last algorithm supported
-*/
-    public static function clearLastAlgorithmCache()
-    {
-        static::$lastAlgorithmSupported = null;
-    }
-}
-	function swapEndian($input){
-		$output = "";
-		for($i=0;$i< strlen($input);$i+=2){
-			$output .= substr($input, -($i+2), 2);
-			
-		
-		}
-		return $output;
-		
-		
-	}
-
-
-/*for($i=0;$i < 200;$i++){
-	$value = Scrypt::calc($i, $i, 1024, 1, 1, 32);
-	echo "scrypt ".$i." hash:".  bin2hex($value)."<br/>";
-}*/
-/*
-$i = pack("H*", "01000000f615f7ce3b4fc6b8f61e8f89aedb1d0852507650533a9e3b10b9bbcc30639f279fcaa86746e1ef52d3edb3c4ad8259920d509bd073605c9bf1d59983752a6b06b817bb4ea78e011d012d59d4");
-
-$value = Scrypt::calc($i, $i, 1024, 1, 1, 32);
-	echo "scrypt ".$i." hash:".   bin2hex($value)."<br/>";
-	print_r( swapEndian(bin2hex($value)));
-	*/
-	
-
-// Function used for pushpoold solution checks
-function word_reverse($str) {
-  $ret = ''; 
-  while (strlen($str) > 0) {
-    $ret .= substr($str, -8, 8); 
-    $str = substr($str, 0, -8);
-  }
-  return $ret;
 }
