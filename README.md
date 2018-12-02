@@ -28,7 +28,7 @@
 - A lot more
 
 ### Documentation
-Currently there isn't much documentation besides this Readme. We could use it! Do a PR if you'd like to help us :). [Though there are a lot of examples](https://github.com/CityOfZion/neo-php/tree/master/examples/)
+Currently there isn't much documentation besides this Readme. We could use it! Do a PR if you'd like to help us :). [Though there are a lot of examples](examples/)
 
 ### Get help or give help
 
@@ -276,7 +276,7 @@ else
 ```
 
 ### NEO Cold wallet generator
-You can also run the [cli-create-wallet-interactive.php](https://github.com/ITSVision/neo-php/blob/master/examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
+You can also run the [cli-create-wallet-interactive.php](examples/cli-create-wallet-interactive.php) example to generate a new wallet. You can do so on a fresh virtual and disconnected Linux distro, you can do a clean run and keep your wallet safe.
 
 ### CoinMarketCap integration
 Neo-PHP Features a full CoinMarketCap API integration. 
