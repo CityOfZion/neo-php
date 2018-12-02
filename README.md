@@ -28,7 +28,7 @@
 - A lot more
 
 ### Documentation
-Currently there isn't much documentation besides this Readme. We could use it! Do a PR if you'd like to help us :). [Though there are a lot of examples](https://github.com/ITSVision/neo-php/tree/master/examples/)
+Currently there isn't much documentation besides this Readme. We could use it! Do a PR if you'd like to help us :). [Though there are a lot of examples](https://github.com/CityOfZion/neo-php/tree/master/examples/)
 
 ### Get help or give help
 
